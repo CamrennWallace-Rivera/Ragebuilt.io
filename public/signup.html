@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -38,21 +38,24 @@
 
                 <div class="mt-2">
                     <input class="block w-full px-2 py-1 text-xs bg-gray-700 text-white border border-gray-600 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none" 
+                    type="email" placeholder="Username" />
+                </div>
+
+                <div class="mt-2">
+                    <input class="block w-full px-2 py-1 text-xs bg-gray-700 text-white border border-gray-600 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none" 
                     type="password" placeholder="Password" />
                 </div>
 
-                <div class="flex items-center justify-between mt-2">
-                    <a href="#" class="text-xs text-blue-400 hover:underline">Forgot Password?</a>
-
+                <div class="flex items-center mt-2 justify-center">
                     <button class="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300">
-                        Sign In
+                        Sign Up
                     </button>
                 </div>
             </form>
 
             <div class="flex items-center justify-center py-2 mt-3">
-                <span class="text-xs text-gray-300">Don't have an account?</span>
-                <a href="signup.html" class="mx-2 text-xs font-bold text-blue-500 dark:text-blue-400 hover:underline">Register</a>
+                <span class="text-xs text-gray-300">Have an account already?</span>
+                <a href="login.html" class="mx-2 text-xs font-bold text-blue-500 dark:text-blue-400 hover:underline">Login</a>
             </div>
         </div>
     </div>
