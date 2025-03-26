@@ -89,7 +89,6 @@ function handleRegistration(queryObj, res) {
 		res.writeHead(200, {"Content-Type" : "text/plain"});
 		res.write("Input field(s) are empty");
 		res.end();
-		connection_pool.end();
 	}
 	else{
 		let connection_pool = mysql.createPool(connectionObj);
@@ -100,7 +99,7 @@ function handleRegistration(queryObj, res) {
 				if (code ==  'ER_DUP_ENTRY') {
 					connection_pool.end()
 					res.writeHead(200, {"Content-Type" : "text/plain"});
-					res.write("Email provided is already registered.");
+					res.write("Email already registered.");
 					res.end();
 				}
 			}
