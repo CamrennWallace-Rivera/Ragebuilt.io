@@ -3,34 +3,156 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-
+const mysql = require("mysql2");
 const hostname = '0.0.0.0';
 const port = 80;
+const url = require('url');
 
-const server = http.createServer((req, res) => {
-    const filePath = path.join(__dirname, '../public', req.url === '/' ? 'index.html' : req.url);
+const connectionObj = {
+	host     : '34.28.200.137',
+	user     : 'root',
+	password : `Js)fbEq{[By\\d7#=`,
+	database : 'ragebuilt',
+	connectionLimit : 10
+}
 
-    fs.readFile(filePath, (err, data) => {
-        if (err) {
-            res.statusCode = 404;
-            res.setHeader('Content-Type', 'text/plain');
-            res.end('Not Found');
-            return;
+function determineContentType(fileNamePath){
+        switch(path.extname(fileNamePath)){
+                case ".jpg":
+                        return "image/jpg";
+                case ".png":
+                        return "image/png";
+                case ".html":
+                        return "text/html";
+                case ".js":
+                        return "text/javascript";
+                case ".css":
+                        return "text/css";
+                case ".wav":
+                        return "audio/wav";
+                case ".mp3":
+                        return "audio/mpeg";
+                default:
+                        return "text/plain";
         }
+};
 
-        let contentType = 'text/html'; // Default is HTML
-        if (filePath.endsWith('.css')) {
-            contentType = 'text/css';
-        } else if (filePath.endsWith('.js')) {
-            contentType = 'application/javascript';
-        }
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', contentType);
-        res.end(data);
-    });
-});
+function writeOut(fileNamePath, res){
+        fs.readFile("public"+fileNamePath, function(err,content){
+                if (err) {
+                        return console.log(err);
+                }
+                else{
+                        res.writeHead(200, {'Content-Type': determineContentType(fileNamePath)});
+                        res.write(content);
+                        res.end();
+ 		}
+        });
+};
 
+function handleLogin(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	
+	connection_pool.query("SELECT * FROM user where user.email = '"+queryObj.email+"' and password = '"+queryObj.password+"'", function (error, results, fields){
+	if (error) {
+	console.log(error);
+	connection_pool.end();
+	}
+	else {
+		console.log("results: ", results);
+		
+		if (results.length == 0){
+			connection_pool.end();
+			console.log("Invalid Login");
+			res.writeHead(200, {"Content-Type" : "text/plain"});
+			res.write("Invalid Login");
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			console.log("User Exists: ", results);
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();		
+		}
+	}
+	});
+	
+}
+
+
+
+function handleRegistration(queryObj, res) {
+
+	if (queryObj.email == "" || queryObj.username == "" || queryObj.password == ""){
+		res.writeHead(200, {"Content-Type" : "text/plain"});
+		res.write("Input field(s) are empty");
+		res.end();
+		connection_pool.end();
+	}
+	else{
+		let connection_pool = mysql.createPool(connectionObj);
+		connection_pool.query("INSERT INTO user(username, password, email) values ('"+queryObj.username+"','"+queryObj.password+"','"+queryObj.email+"')",
+		function (error, results, fields) {
+			if (error) {
+				var code = error.code;
+				if (code ==  'ER_DUP_ENTRY') {
+					connection_pool.end()
+					res.writeHead(200, {"Content-Type" : "text/plain"});
+					res.write("Email provided is already registered.");
+					res.end();
+				}
+			}
+			else{
+				res.writeHead(200, {"Content-Type" : "text/plain"});
+				res.write("You signed up successfully.");
+				connection_pool.end();
+				res.end();
+			}
+			});
+		}
+}
+
+function handle_incoming_request(req, res){
+	console.log(req.url);
+	const path = url.parse(req.url).pathname;
+	const queryObj = url.parse(req.url, "true").query;
+
+	switch(path){
+		case "/index.html":
+			writeOut(path, res);
+			break;
+		case "/login.html":
+			writeOut(path, res);
+			break;
+		case "/signup.html":
+			writeOut(path, res);
+			break;
+		case "/vehicleBuilder.html":
+			writeOut(path, res);
+			break;
+		case "Forums.html":
+			writeOut(path, res);
+			break;
+		case "/login":
+			handleLogin(queryObj, res);
+			break;
+		case "/":
+			writeOut("/index.html", res);
+			break;
+		case "/signup":
+			handleRegistration(queryObj, res);
+			break;
+		default:
+			writeOut(path, res);
+			break;
+	}
+}
+
+
+
+const server = http.createServer(handle_incoming_request);
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
