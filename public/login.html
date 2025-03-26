@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
+        <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-semibold text-lg">RageBuilt.io</a>
+        <a href="index.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
+        <a href="index.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
+        <div class="ml-auto flex gap-2">
+            <a href="index.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+            <a href="index.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="flex items-center justify-center min-h-screen pt-14">
+        <div class="w-full max-w-[220px] mx-auto overflow-hidden bg-gray-800 rounded-lg shadow-md text-white text-xs p-4">
+            <div class="flex justify-center">
+                <img class="w-14 h-auto" src="images/DALLÂ·E 2025-02-25 20.16.02 - A clean and modern logo with the word 'RAGEBUILT' displayed in bold, capital letters. The typography should be sharp, modern, and aggressive, represen.png" alt="RageBuilt Logo">
+            </div>
+
+            <h3 class="mt-2 font-semibold text-center">Welcome Back</h3>
+            <p class="mt-1 text-center text-gray-300">Login or create an account</p>
+
+            <form>
+                <div class="mt-2">
+                    <input class="block w-full px-2 py-1 text-xs bg-gray-700 text-white border border-gray-600 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none" 
+                    type="email" placeholder="Email Address" />
+                </div>
+
+                <div class="mt-2">
+                    <input class="block w-full px-2 py-1 text-xs bg-gray-700 text-white border border-gray-600 rounded-md focus:border-blue-400 focus:ring focus:ring-blue-300 focus:outline-none" 
+                    type="password" placeholder="Password" />
+                </div>
+
+                <div class="flex items-center justify-between mt-2">
+                    <a href="#" class="text-xs text-blue-400 hover:underline">Forgot Password?</a>
+
+                    <button class="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300">
+                        Sign In
+                    </button>
+                </div>
+            </form>
+
+            <div class="flex items-center justify-center py-2 mt-3">
+                <span class="text-xs text-gray-300">Don't have an account?</span>
+                <a href="#" class="mx-2 text-xs font-bold text-blue-500 dark:text-blue-400 hover:underline">Register</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
