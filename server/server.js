@@ -134,6 +134,9 @@ function handle_incoming_request(req, res){
 		case "Forums.html":
 			writeOut(path, res);
 			break;
+		case "profile.html":
+			writeOut(path,res);
+			break;
 		case "/login":
 			handleLogin(queryObj, res);
 			break;
