@@ -20,9 +20,13 @@ signInBtn.addEventListener("click", (e) => {
                                 invalidLogin(pw);
                         }
                         else{
-                                sessionStorage.setItem("isLoggedin", true);
-                                let json = JSON.parse(this.responseText);
+                                let json = JSON.parse(this.responseText)[0];
+				let username = json.username;
                                 console.log("Returned json: ", json)
+				console.log("username: " + username)
+				sessionStorage.setItem("isLoggedin", "true");
+				sessionStorage.setItem("username", username);
+				window.location.href = "index.html";
                         }
                 }
                 else{
