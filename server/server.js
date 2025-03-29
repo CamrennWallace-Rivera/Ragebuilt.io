@@ -135,7 +135,7 @@ function create_forum_post(queryObj, res){
 function get_forum_posts(queryObj, res) {
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query("SELECT title FROM forums ORDER BY RAND() LIMIT 5;", function(error, results, fields) {
+	connection_pool.query("SELECT forums.title, user.username FROM user JOIN forums ON user.email=forums.email ORDER BY RAND() LIMIT 5;", function(error, results, fields) {
 		if(error){
 			console.log(error);
 			connection_pool.end();
