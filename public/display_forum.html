@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
+        <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-[Agbalumo] font-semibold text-lg">RageBuilt.io</a>
+        <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
+        <a href="Forums.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
+        <div class="ml-auto flex gap-2">
+            <a href="login.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+            <a href="signup.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
+        </div>
+    </nav>
+    <div class="container max-w-3xl mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden mt-20">
+        <!-- Forum Header -->
+        <div class="bg-blue-600 text-white px-6 py-3">
+            <h1 class="text-2xl font-bold mt-4">Forum Title</h1>
+        </div>
+        
+        <!-- Post Section -->
+        <div class="p-6 border-b border-gray-200">
+            <!-- Post Header with User Info -->
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-gray-300 overflow-hidden mr-4">
+                    <img src="/api/placeholder/48/48" alt="User Avatar" class="w-full h-full object-cover" />
+                </div>
+                <div>
+                    <p id="post-username" class="font-bold text-blue-600">@Username</p>
+                    <p class="text-gray-500 text-sm">Posted on <span id="post-date">March 29, 2025</span></p>
+                </div>
+            </div>
+            
+            <!-- Post Title -->
+            <h2 id="post-title" class="text-2xl font-bold mb-4">Post Title Goes Here</h2>
+            
+            <!-- Post Content -->
+            <div id="post-content" class="prose max-w-none mb-6">
+                <p>This is a placeholder for the post content. This is where the description of the forum post will be displayed. The content can be updated dynamically using JavaScript.</p>
+            </div>
+        </div>
+        
+        <!-- Comments Section -->
+        <div class="p-6">
+            <!-- Comments Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Comments (<span id="comment-count">2</span>)</h2>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Sort by Newest</button>
+            </div>
+            
+            <!-- Comments Container -->
+            <div id="comments-container">
+                <!-- Comment 1 -->
+                <div class="mb-6 pb-6 border-b border-gray-200 last:border-0">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 overflow-hidden mr-3">
+                            <img src="/api/placeholder/40/40" alt="Comment User Avatar" class="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                            <p class="font-bold text-blue-600">Commenter1</p>
+                            <p class="text-gray-500 text-xs">March 29, 2025 - 10:30 AM</p>
+                        </div>
+                    </div>
+                    <div class="ml-12">
+                        <p>This is a sample comment. The content can be updated dynamically using JavaScript.</p>
+                    </div>
+                </div>
+                
+                <!-- Comment 2 -->
+                <div class="mb-6 pb-6 border-b border-gray-200 last:border-0">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-300 overflow-hidden mr-3">
+                            <img src="/api/placeholder/40/40" alt="Comment User Avatar" class="w-full h-full object-cover" />
+                        </div>
+                        <div>
+                            <p class="font-bold text-blue-600">Commenter2</p>
+                            <p class="text-gray-500 text-xs">March 29, 2025 - 11:15 AM</p>
+                        </div>
+                    </div>
+                    <div class="ml-12">
+                        <p>Here's another example comment. You can add more comments dynamically.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add Comment Section -->
+            <div class="mt-8">
+                <h3 class="text-lg font-bold mb-4">Add a Comment</h3>
+                <textarea id="new-comment" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-24 mb-3" placeholder="Write your comment here..."></textarea>
+                <button id="submit-comment" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition font-bold">Post Comment</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
