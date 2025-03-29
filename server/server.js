@@ -113,6 +113,44 @@ function handleRegistration(queryObj, res) {
 		}
 }
 
+function create_forum_post(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	console.log(`INSERT INTO forums(title, description, email) VALUES ('${queryObj.title}', '${queryObj.description}', '${queryObj.email}')`);
+	connection_pool.query(`INSERT INTO forums(title, description, email) VALUES ('${queryObj.title}', '${queryObj.description}', '${queryObj.email}')`,
+	function (error, results, fields) {
+		if (error) {
+			console.log(error);
+			res.end();
+			connection_pool.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "text/plain"});
+			res.write("Successfully created forum.");
+			res.end();
+		}
+	})
+}
+
+function get_forum_posts(queryObj, res) {
+	let connection_pool = mysql.createPool(connectionObj);
+
+	connection_pool.query("SELECT title FROM forums ORDER BY RAND() LIMIT 5;", function(error, results, fields) {
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+
+	})}
+
+
 function handle_incoming_request(req, res){
 	console.log(req.url);
 	const path = url.parse(req.url).pathname;
@@ -145,6 +183,15 @@ function handle_incoming_request(req, res){
 			break;
 		case "/signup":
 			handleRegistration(queryObj, res);
+			break;
+		case "/post.html":
+			writeOut(path, res);
+			break;
+		case "/forum_post":
+			create_forum_post(queryObj, res);
+			break;
+		case "/get_forum_posts":
+			get_forum_posts(queryObj, res);
 			break;
 		default:
 			writeOut(path, res);

@@ -22,10 +22,9 @@ signInBtn.addEventListener("click", (e) => {
                         else{
                                 let json = JSON.parse(this.responseText)[0];
 				let username = json.username;
-                                console.log("Returned json: ", json)
-				console.log("username: " + username)
 				sessionStorage.setItem("isLoggedin", "true");
 				sessionStorage.setItem("username", username);
+				sessionStorage.setItem("email", email.value);
 				window.location.href = "index.html";
                         }
                 }

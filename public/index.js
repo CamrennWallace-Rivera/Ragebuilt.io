@@ -1,7 +1,9 @@
 const isLoggedin = sessionStorage.getItem("isLoggedin");
 const username = sessionStorage.getItem("username");
-console.log("Is loggedin? : " + isLoggedin);
-console.log("Username? :" + username);
+const email = sessionStorage.getItem("email");
+console.log("Is logged in: " + isLoggedin);
+console.log("Username: " + username);
+console.log("email: " + email);
 
 var loginBtn = document.getElementById("login");
 var signUpBtn = document.getElementById("signup");

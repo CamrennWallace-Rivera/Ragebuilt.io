@@ -13,9 +13,9 @@
         <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
         <a href="Forums.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
         <div class="ml-auto flex gap-2">
-            <a href="login.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
-            <a href="signup.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
-            <div class="relative hidden">
+            <a href="login.html" id="login" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+            <a href="signup.html" id="signup" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
+            <div class="relative hidden" id="profilePic">
                 <!-- Wrapper div -->
                 <div class="group flex items-center gap-2">
                   <!-- Profile Picture Button -->
@@ -48,7 +48,6 @@
                     <div class="border-1 border-gray-400 rounded-md p-2 mt-2">
                     <input 
                         id="photo"
-                        name="photo"
                         type="file" 
                         accept="image/png, image/jpg, image/jpeg" 
                         class="hover:file:bg-blue-500
@@ -59,12 +58,12 @@
                     </div>
                 </div>
                 <div class="flex justify-center mt-4">
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 cursor-pointer">Create Post</button>
+                    <button id="submit_button" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 cursor-pointer">Create Post</button>
                 </div>
             </form>
         </div>
     </div>
-
-    
+    <script src="post.js"></script>
+    <script src="index.js"></script>    
 </body>
 </html>
