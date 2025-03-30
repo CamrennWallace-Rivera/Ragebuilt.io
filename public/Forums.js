@@ -1,4 +1,4 @@
-const divs = document.getElementsByTagName("div");
+const divs = document.querySelectorAll(".forum-box");
 const url = 'http://34.135.190.211/'
 const create_btn = document.getElementById("create_btn");
 
@@ -22,6 +22,12 @@ function create_post(){
 	}
 }
 
+function click_on_post(forum_idx){
+	const forum_id = sessionStorage.getItem(`forum_id_${forum_idx}`);
+	sessionStorage.setItem("selected_forum", forum_id);
+	window.location.href = 'display_forum.html';
+}
+
 
 let AJAX = new XMLHttpRequest();
 
@@ -34,6 +40,7 @@ AJAX.onload = function() {
 		console.log(JSON.parse(this.responseText));
 		response = JSON.parse(this.responseText);
 		populate_forums(response);
+		set_forum_ids(response);
 	}
 	else{
 		console.log(this.status)
@@ -44,10 +51,22 @@ AJAX.open("GET", url + "get_forum_posts");
 AJAX.send();
 
 function populate_forums(response){
-	for (let i = 5, j = 0; i < divs.length && j < response.length; i++, j++) {
-		divs[i].getElementsByTagName("p")[0].innerHTML = response[j].title;
-		divs[i].getElementsByTagName("p")[1].innerHTML = "@" +  response[j].username;
+	for (let i = 0; i < response.length; i++) {
+		var localDate = new Date(response[i].created_at);
 
-    }
+
+		const innerPs = divs[i].querySelectorAll("div > p");
+		innerPs[0].innerHTML = response[i].title;
+		innerPs[1].innerHTML = "@" + response[i].username;
+		innerPs[2].innerHTML = localDate.toLocaleString();
+
+		divs[i].addEventListener('click', () => click_on_post(i+1))
+		}
+	}
+
+
+function set_forum_ids(response){
+	for(let i = 0; i < response.length; i++){
+		sessionStorage.setItem(`forum_id_${i+1}`, response[i].forum_id);
+	}
 }
-

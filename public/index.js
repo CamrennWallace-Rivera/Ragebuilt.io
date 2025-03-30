@@ -1,8 +1,7 @@
 const isLoggedin = sessionStorage.getItem("isLoggedin");
-const username = sessionStorage.getItem("username");
 const email = sessionStorage.getItem("email");
+const logout = document.getElementById("logout");
 console.log("Is logged in: " + isLoggedin);
-console.log("Username: " + username);
 console.log("email: " + email);
 
 var loginBtn = document.getElementById("login");
@@ -15,3 +14,7 @@ if (isLoggedin == "true") {
 	signUpBtn.classList.add("hidden");
 	profile.classList.remove("hidden");
 };
+
+logout.addEventListener('click', function() {
+	sessionStorage.setItem("isLoggedin", "false");
+})

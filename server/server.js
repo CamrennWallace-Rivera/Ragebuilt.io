@@ -60,7 +60,6 @@ function handleLogin(queryObj, res){
 	connection_pool.end();
 	}
 	else {
-		console.log("results: ", results);
 		
 		if (results.length == 0){
 			connection_pool.end();
@@ -71,7 +70,6 @@ function handleLogin(queryObj, res){
 		}
 		else{
 			connection_pool.end();
-			console.log("User Exists: ", results);
 			res.writeHead(200, {"Content-Type" : "application/json"});
 			res.write(JSON.stringify(results));
 			res.end();		
@@ -135,7 +133,7 @@ function create_forum_post(queryObj, res){
 function get_forum_posts(queryObj, res) {
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query("SELECT forums.title, user.username FROM user JOIN forums ON user.email=forums.email ORDER BY RAND() LIMIT 5;", function(error, results, fields) {
+	connection_pool.query("SELECT forums.title, user.username, forums.created_at, forums.forum_id FROM user JOIN forums ON user.email=forums.email ORDER BY RAND() LIMIT 5;", function(error, results, fields) {
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -150,6 +148,76 @@ function get_forum_posts(queryObj, res) {
 
 	})}
 
+function display_forum_page(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+
+	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, user.username FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+}
+
+function display_comments(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	let sql_query = `select comments.comment_desc, comments.comment_date, user.username FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
+	connection_pool.query(sql_query, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+			
+		}
+	})
+}
+
+function add_comments(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	let sql_query = `INSERT INTO comments(email, comment_desc, forum_id) VALUES ("${queryObj.email}", "${queryObj.comment_desc}", ${queryObj.forum_id})`;
+	connection_pool.query(sql_query, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			return_single_comment(queryObj, res);
+		}
+	})
+}
+
+function return_single_comment(queryObj, res){
+	let connection_pool2 = mysql.createPool(connectionObj);
+	let sql_query2 = `SELECT user.username, comments.comment_desc, comments.comment_date FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id}`;
+	connection_pool2.query(sql_query2, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool2.end();
+			res.end();
+		}
+		else{
+			connection_pool2.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+}
 
 function handle_incoming_request(req, res){
 	console.log(req.url);
@@ -192,6 +260,18 @@ function handle_incoming_request(req, res){
 			break;
 		case "/get_forum_posts":
 			get_forum_posts(queryObj, res);
+			break;
+		case "display_forum.html":
+			writeOut(path, res);
+			break;
+		case "/forums_id":
+			display_forum_page(queryObj, res);
+			break;
+		case "/comments":
+			display_comments(queryObj, res);
+			break;
+		case "/add_comment":
+			add_comments(queryObj, res);
 			break;
 		default:
 			writeOut(path, res);
