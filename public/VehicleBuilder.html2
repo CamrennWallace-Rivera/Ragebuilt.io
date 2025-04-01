@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RageBuilt.io</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="VehicleBuilder.css">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
+        <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-[Agbalumo] font-semibold text-lg">RageBuilt.io</a>
+        <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
+        <a href="Forums.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
+        <div class="ml-auto flex gap-2">
+            <a href="login.html" id="login" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+            <a href="signup.html" id="signup" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
+            <div class="relative hidden" id="profilePic">
+                <!-- Wrapper div -->
+                <div class="group flex items-center gap-2">
+                  <!-- Profile Picture Button -->
+                  <button class="w-8 h-8 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer">
+                    <img src="smaller-DSC_5602-1024x682.jpg" alt="Profile" class="w-full h-full object-cover">
+                  </button>
+                <!-- Dropdown Menu -->
+                <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200 z-50">
+                  <a href="profile.html" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Profile</a>
+                  <a href="index.html" id="logout" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Logout</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </nav>
+
+
+<!-- Vehicle Builder Text -->
+<h1 class="font-[Agbalumo] mt-[85px] ml-[35px] text-6xl font-bold leading-tight">Vehicle Builder</h1>
+<p class="font-[Agbalumo] mt-[20px] ml-[35px] text-3xl font-bold">Select The Parts for Your Build!</p>
+
+<!-- Part Name Price From Line -->
+<div class="ml-[105px] mt-[60px] flex w-[900px] text-xl font-bold">
+    <span class="w-[250px]">Part</span>
+    <span class="w-[250px]">Name</span>
+    <span class="w-[250px] text-center">Price</span>
+    <span class="w-[250px] text-center">From</span>
+</div>
+
+<!-- Engine Line -->
+<hr class="border-t-2 border-black mt-[10px] mx-[35px]">
+<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
+    <span class="w-[250px] flex items-center">
+        Engine
+        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
+            Add+
+        </button>
+    </span>
+    <span class="w-[250px]">-----</span>
+    <span class="w-[250px] text-center">$250</span>
+    <span class="w-[250px] text-center">Store B</span>
+</div>
+
+<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+
+<!-- Transmission Line -->
+<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
+    <span class="w-[250px] flex items-center">
+        Transmission
+        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-2">
+            Add+
+        </button>
+    </span>
+    <span class="w-[250px]">-----</span>
+    <span class="w-[250px] text-center">$400</span>
+    <span class="w-[250px] text-center">Store A</span>
+</div>
+
+<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+
+<!-- Clutch Line -->
+<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
+    <span class="w-[250px] flex items-center">
+        Clutch
+        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
+            Add+
+        </button>
+    </span>
+    <span class="w-[250px]">-----</span>
+    <span class="w-[250px] text-center">$180</span>
+    <span class="w-[250px] text-center">Store C</span>
+</div>
+
+<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+
+<!-- Tires/Wheels Line -->
+<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
+    <span class="w-[250px] flex items-center">
+        Tires/Wheels
+        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-3">
+            Add+
+        </button>
+    </span>
+    <span class="w-[250px]">-----</span>
+    <span class="w-[250px] text-center">$500</span>
+    <span class="w-[250px] text-center">Store D</span>
+</div>
+
+<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+
+<!-- Brakes Line -->
+<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
+    <span class="w-[250px] flex items-center">
+        Brakes
+        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
+            Add+
+        </button>
+    </span>
+    <span class="w-[250px]">-----</span>
+    <span class="w-[250px] text-center">$320</span>
+    <span class="w-[250px] text-center">Store E</span>
+</div>
+
+<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+
+<!-- Muffler Line -->
+<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
+    <span class="w-[250px] flex items-center">
+        Muffler
+        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-14">
+            Add+
+        </button>
+    </span>
+    <span class="w-[250px]">-----</span>
+    <span class="w-[250px] text-center">$150</span>
+    <span class="w-[250px] text-center">Store F</span>
+</div>
+
+<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+<script src="index.js"></script>
+</body>
+</html>

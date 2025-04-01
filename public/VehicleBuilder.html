@@ -12,25 +12,11 @@
     <!-- Navbar -->
     <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
         <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-[Agbalumo] font-semibold text-lg">RageBuilt.io</a>
-        <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
-        <a href="Forums.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
+        <a href="index.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
+        <a href="index.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
         <div class="ml-auto flex gap-2">
-            <a href="login.html" id="login" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
-            <a href="signup.html" id="signup" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
-            <div class="relative hidden" id="profilePic">
-                <!-- Wrapper div -->
-                <div class="group flex items-center gap-2">
-                  <!-- Profile Picture Button -->
-                  <button class="w-8 h-8 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer">
-                    <img src="smaller-DSC_5602-1024x682.jpg" alt="Profile" class="w-full h-full object-cover">
-                  </button>
-                <!-- Dropdown Menu -->
-                <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200 z-50">
-                  <a href="profile.html" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Profile</a>
-                  <a href="index.html" id="logout" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Logout</a>
-                  </div>
-                </div>
-              </div>
+            <a href="index.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+            <a href="index.html" class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
         </div>
     </nav>
 
@@ -47,48 +33,51 @@
     <span class="w-[250px] text-center">From</span>
 </div>
 
-<!-- Engine Line -->
+<!-- Engine Info -->
 <hr class="border-t-2 border-black mt-[10px] mx-[35px]">
 <div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
     <span class="w-[250px] flex items-center">
         Engine
-        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
+        <button id="engine-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
             Add+
         </button>
     </span>
-    <span class="w-[250px]">-----</span>
-    <span class="w-[250px] text-center">$250</span>
-    <span class="w-[250px] text-center">Store B</span>
+    <!--Where the engine line info gets updated/displayed-->
+    <span id="engine-name-display" class="w-[250px]">-----</span>
+    <span id="engine-price-display" class="w-[250px] text-center">-----</span>
+    <span id="engine-store-display" class="w-[250px] text-center">-----</span>
 </div>
 
 <hr class="border-t-2 border-black mt-[20px] mx-[35px]">
 
-<!-- Transmission Line -->
+<!-- Transmission Info -->
 <div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
     <span class="w-[250px] flex items-center">
         Transmission
-        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-2">
+        <button id="transmission-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-3">
             Add+
         </button>
     </span>
-    <span class="w-[250px]">-----</span>
-    <span class="w-[250px] text-center">$400</span>
-    <span class="w-[250px] text-center">Store A</span>
+    <!--Where the transmission line info gets updated/displayed-->
+    <span id="transmission-name-display" class="w-[250px]">-----</span>
+    <span id="transmission-price-display" class="w-[250px] text-center">-----</span>
+    <span id="transmission-store-display" class="w-[250px] text-center">-----</span>
 </div>
 
 <hr class="border-t-2 border-black mt-[20px] mx-[35px]">
 
-<!-- Clutch Line -->
+<!--Clutch Info-->
 <div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
     <span class="w-[250px] flex items-center">
-        Clutch
-        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
+        Clutch  
+        <button id="clutch-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
             Add+
         </button>
     </span>
-    <span class="w-[250px]">-----</span>
-    <span class="w-[250px] text-center">$180</span>
-    <span class="w-[250px] text-center">Store C</span>
+    <!--Where the clutch line info gets updated/displayed-->
+    <span id="clutch-name-display" class="w-[250px]">-----</span>
+    <span id="clutch-price-display" class="w-[250px] text-center">-----</span>
+    <span id="clutch-store-display" class="w-[250px] text-center">-----</span>
 </div>
 
 <hr class="border-t-2 border-black mt-[20px] mx-[35px]">
@@ -97,13 +86,14 @@
 <div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
     <span class="w-[250px] flex items-center">
         Tires/Wheels
-        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-3">
+        <button id="tires-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-3">
             Add+
         </button>
     </span>
-    <span class="w-[250px]">-----</span>
-    <span class="w-[250px] text-center">$500</span>
-    <span class="w-[250px] text-center">Store D</span>
+    <!--Where the tires/wheels line info gets updated/displayed-->
+    <span id="tires-name-display" class="w-[250px]">-----</span>
+    <span id="tires-price-display" class="w-[250px] text-center">-----</span>
+    <span id="tires-store-display" class="w-[250px] text-center">-----</span>
 </div>
 
 <hr class="border-t-2 border-black mt-[20px] mx-[35px]">
@@ -112,13 +102,14 @@
 <div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
     <span class="w-[250px] flex items-center">
         Brakes
-        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
+        <button id="brakes-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
             Add+
         </button>
     </span>
-    <span class="w-[250px]">-----</span>
-    <span class="w-[250px] text-center">$320</span>
-    <span class="w-[250px] text-center">Store E</span>
+    <!--Where the brakes line info gets updated/displayed-->
+    <span id="brakes-name-display" class="w-[250px]">-----</span>
+    <span id="brakes-price-display" class="w-[250px] text-center">-----</span>
+    <span id="brakes-store-display" class="w-[250px] text-center">-----</span>
 </div>
 
 <hr class="border-t-2 border-black mt-[20px] mx-[35px]">
@@ -127,16 +118,135 @@
 <div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
     <span class="w-[250px] flex items-center">
         Muffler
-        <button class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-14">
+        <button id="muffler-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-14">
             Add+
         </button>
     </span>
-    <span class="w-[250px]">-----</span>
-    <span class="w-[250px] text-center">$150</span>
-    <span class="w-[250px] text-center">Store F</span>
+    <!--Where the muffler line info gets updated/displayed-->
+    <span id="muffler-name-display" class="w-[250px]">-----</span>
+    <span id="muffler-price-display" class="w-[250px] text-center">-----</span>
+    <span id="muffler-store-display" class="w-[250px] text-center">-----</span>
 </div>
 
 <hr class="border-t-2 border-black mt-[20px] mx-[35px]">
-<script src="index.js"></script>
+
+
+<!--Pop Up Windows For the Add Buttons-->
+
+<!-- Engine Popup -->
+<div id="popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Engine Details</h2>
+        
+        <label class="block mb-2">Enter Engine Name:</label>
+        <input type="text" id="engine-name" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Engine Price:</label>
+        <input type="text" id="engine-price" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Store Name:</label>
+        <input type="text" id="store-name" class="w-full p-2 border rounded mb-4">
+
+        <div class="flex justify-end">
+            <button id="close-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+            <button id="confirm-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!--Transmission Popup -->
+<div id="transmission-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Transmission Details</h2>
+        
+        <label class="block mb-2">Enter Transmission Name:</label>
+        <input type="text" id="transmission-name" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Transmission Price:</label>
+        <input type="text" id="transmission-price" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Store Name:</label>
+        <input type="text" id="transmission-store" class="w-full p-2 border rounded mb-4">
+
+        <div class="flex justify-end">
+            <button id="close-transmission-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+            <button id="confirm-transmission-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Clutch Popup -->
+<div id="clutch-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Clutch Details</h2>
+        
+        <label class="block mb-2">Enter Clutch Name:</label>
+        <input type="text" id="clutch-name" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Clutch Price:</label>
+        <input type="text" id="clutch-price" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Store Name:</label>
+        <input type="text" id="clutch-store" class="w-full p-2 border rounded mb-4">
+
+        <div class="flex justify-end">
+            <button id="close-clutch-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+            <button id="confirm-clutch-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Tires/Wheels Popup -->
+<div id="tires-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Tires/Wheels Details</h2>
+        
+        <label class="block mb-2">Enter Tires/Wheels Name:</label>
+        <input type="text" id="tires-name" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Tires/Wheels Price:</label>
+        <input type="text" id="tires-price" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Store Name:</label>
+        <input type="text" id="tires-store" class="w-full p-2 border rounded mb-4">
+
+        <div class="flex justify-end">
+            <button id="close-tires-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+            <button id="confirm-tires-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Brakes Popup -->
+<div id="brakes-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Brakes Details</h2>
+        
+        <label class="block mb-2">Enter Brakes Name:</label>
+        <input type="text" id="brakes-name" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Brakes Price:</label>
+        <input type="text" id="brakes-price" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Store Name:</label>
+        <input type="text" id="brakes-store" class="w-full p-2 border rounded mb-4">
+
+        <div class="flex justify-end">
+            <button id="close-brakes-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+            <button id="confirm-brakes-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Muffler Popup -->
+<div id="muffler-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Muffler Details</h2>
+        
+        <label class="block mb-2">Enter Muffler Name:</label>
+        <input type="text" id="muffler-name" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Muffler Price:</label>
+        <input type="text" id="muffler-price" class="w-full p-2 border rounded mb-4">
+        <label class="block mb-2">Enter Store Name:</label>
+        <input type="text" id="muffler-store" class="w-full p-2 border rounded mb-4">
+
+        <div class="flex justify-end">
+            <button id="close-muffler-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+            <button id="confirm-muffler-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<script src="VehicleBuilder.js"></script>
 </body>
 </html>
