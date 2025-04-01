@@ -1,8 +1,45 @@
 const divs = document.querySelectorAll(".forum-box");
 const url = 'http://34.135.190.211/'
 const create_btn = document.getElementById("create_btn");
+const search = document.getElementById("search");
 
 create_btn.addEventListener('click', create_post);
+search.addEventListener('input', search_forums);
+
+function search_forums() {
+	console.log("query: " + search.value);
+
+	let AJAX = new XMLHttpRequest();
+
+	AJAX.onerror = function(e) {
+		console.log(e);
+	}
+
+	AJAX.onload = function() {
+		if(this.status == 200){
+			var json = JSON.parse(this.responseText);
+			console.log("Res text: " + this.responseText);
+			delete_forums(json);
+			populate_forums(json);
+
+		}
+		else{
+			console.log(this.status);
+		}
+	}
+
+	AJAX.open("GET", "search_forum?search_query="+search.value);
+	AJAX.send();
+}
+
+function delete_forums(response){
+	for(let i = 0; i < 5; i++){
+		const innerPs = divs[i].querySelectorAll("div > p");
+		innerPs[0].innerHTML = "";
+		innerPs[1].innerHTML = "";
+		innerPs[2].innerHTML = "";
+	}
+}
 
 function create_post(){
 	const loginMsg = document.getElementById('loginMessage');

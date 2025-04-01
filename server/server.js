@@ -219,6 +219,30 @@ function return_single_comment(queryObj, res){
 	})
 }
 
+function search_query(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(
+	`SELECT forums.title, user.username, forums.created_at, forums.forum_id
+   FROM user
+   JOIN forums ON user.email = forums.email
+   WHERE forums.title LIKE CONCAT('%', ?, '%')
+   LIMIT 5;`,
+  [queryObj.search_query], function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+}
+
+
 function handle_incoming_request(req, res){
 	console.log(req.url);
 	const path = url.parse(req.url).pathname;
@@ -272,6 +296,9 @@ function handle_incoming_request(req, res){
 			break;
 		case "/add_comment":
 			add_comments(queryObj, res);
+			break;
+		case "/search_forum":
+			search_query(queryObj, res);
 			break;
 		default:
 			writeOut(path, res);
