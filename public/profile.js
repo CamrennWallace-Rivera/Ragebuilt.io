@@ -18,9 +18,9 @@ async function load_profile_page(){
 			throw new Error(response.status);
 		}
 		const data = await response.json();
-		console.log("profile data: " + data[0].username);
+		console.log("profile info: " + data[0]);
 		if(data[0].profile_pic == null){
-			profilePic.src = "2018-subaru-wrx-sti-sport-bc-racing-coilovers-volk-te37.jpg";
+			profilePic.src = "default_pfp.jpg";
 		}
 		else{
 			profilePic.src = data[0].profile_pic;

@@ -9,7 +9,6 @@ const username = sessionStorage.getItem("username");
 const div_above_img = document.getElementById("div_above_img");
 
 console.log("forum_id: "+ forum_id);
-console.log("username: " + username);
 
 post_comment.addEventListener('click', post_comment_func);
 
