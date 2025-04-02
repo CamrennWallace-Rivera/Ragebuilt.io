@@ -89,7 +89,7 @@ function populate_forums(response){
 	for (let i = 0; i < response.length; i++){
 		var localDate = new Date(response[i].created_at);
 
-		forum_HTML = `<div class="forum-box absolute right-[-800px] top-[${t}%] px-5 py-3 w-[600px] h-[60px]  bg-gray-300 rounded-lg border border-gray-400 mt-4 cursor-pointer">
+		forum_HTML = `<div class="forum-box absolute right-[-800px] top-[${t}%] px-5 py-3 w-[600px] h-[60px]  bg-gray-300 rounded-lg border border-gray-400 mt-4 cursor-pointer transistion duration-200 hover:bg-gray-100">
         	<p class="text-gray-700 font-bold">${response[i].title}</p>
         	<div class="flex items-center justify-between">
         	<p class="text-gray-700 text-xs">${response[i].username} </p>
@@ -98,29 +98,11 @@ function populate_forums(response){
     		</div>`
 		search_bar.insertAdjacentHTML('afterend', forum_HTML);
 		let forumElement = search_bar.nextElementSibling; 
-        	forumElement.addEventListener("click", () => click_on_post(i+1))
+        	forumElement.addEventListener("click", () => click_on_post(i+1));
 		t = t + 100;
 	}
 }
 
-
-/*
-function populate_forums(response){
-	const search_bar = document.getElementById("search");
-	for (let i = 0; i < response.length; i++) {
-		var localDate = new Date(response[i].created_at);
-
-
-		const innerPs = divs[i].querySelectorAll("div > p");
-		innerPs[0].innerHTML = response[i].title;
-		innerPs[1].innerHTML = "@" + response[i].username;
-		innerPs[2].innerHTML = localDate.toLocaleString();
-
-		divs[i].addEventListener('click', () => click_on_post(i+1))
-		}
-	}
-
-*/
 
 
 function set_forum_ids(response){

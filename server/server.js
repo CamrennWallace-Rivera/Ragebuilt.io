@@ -276,6 +276,23 @@ function post_save_img(queryObj, res, filepath){
 	})
 }
 
+function profile_page(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`SELECT username, profile_pic, profile_desc FROM user WHERE email='${queryObj.email}'`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+}
+
 
 function handle_incoming_request(req, res){
 	console.log(req.url);
@@ -336,6 +353,9 @@ function handle_incoming_request(req, res){
 			break;
 		case "/fileupload":
 			upload_img(req, res);
+			break;
+		case "/request_profile":
+			profile_page(queryObj, res);
 			break;
 		default:
 			writeOut(path, res);

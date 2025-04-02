@@ -2,26 +2,6 @@ const submit = document.getElementById("submit_button");
 const url = 'http://34.135.190.211/';
 const picture = document.getElementById("photo");
 
-/*
-picture.addEventListener('change', (e) => {
-	e.preventDefault();
-	const file = picture.files[0];
-	console.log(file);
-
-	const formData = new FormData();
-	formData.append('filetoupload', file);
-
-	fetch("/fileupload", {
-		method: "POST",
-		body: formData,
-	})
-	.then(response => response.text())
-	.then(data => {
-		console.log("server response: ", data);
-	})
-	.catch(error => console.error("upload failed: ", error));
-});
-*/
 function upload_pic(file){
 	console.log(file);
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RageBuilt.io Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-[rgb(249,249,249)]">
@@ -32,15 +32,15 @@
         </div>
     </nav>
     <div class="flex mt-18 items-center h-100">
-        <img src="2018-subaru-wrx-sti-sport-bc-racing-coilovers-volk-te37.jpg" class="w-110 h-80 border-3 ml-12">
+        <img id="profile_pic" src="2018-subaru-wrx-sti-sport-bc-racing-coilovers-volk-te37.jpg" class="w-110 h-80 border-3 ml-12">
         <div class="border-3 rounded-xl w-340 ml-5">
         <div class="flex-col w-280 h-80 ml-45">
             <div class="w-full h-30"> 
-            <p class="h-30 text-3xl/30"> @splee </p>
+            <p class="h-30 text-3xl/30" id="username"> @splee </p>
             <a
             class="group relative inline-flex items-center overflow-hidden rounded-sm border border-current px-8 py-3 text-indigo-600 focus:ring-3 focus:outline-hidden bottom-20 ml-100"
             href="#">
-            <span class="absolute -start-full transition-all group-hover:start-4">
+            <span id="edit_profile_btn" class="absolute -start-full transition-all group-hover:start-4">
             <svg
                 class="size-5 rtl:rotate-180"
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@
             </a>
             </div>
             <div class="w-full h-40"> 
-                <p> This is where the users description will go. </p>
+                <p id="description"> This is where the users description will go. </p>
             </div>
         </div>
     </div>
@@ -99,5 +99,6 @@
     </div>
     </div>
     <script src="index.js"></script>
+    <script src="profile.js"></script>
     </body>
 </html>

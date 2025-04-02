@@ -8,13 +8,26 @@ const post_comment = document.getElementById("submit-comment");
 const username = sessionStorage.getItem("username");
 const div_above_img = document.getElementById("div_above_img");
 
-
 console.log("forum_id: "+ forum_id);
 console.log("username: " + username);
 
 post_comment.addEventListener('click', post_comment_func);
 
 function post_comment_func(){
+	if (isLoggedin == "false"){
+		const login_msg_check = document.getElementById("warning_msg");
+		if (login_msg_check){
+			login_msg_check.remove();
+		}
+		console.log("Cannot post, not logged in.");
+		const login_msg = document.createElement("p");
+		login_msg.innerHTML = "Login to Post Comment.";
+		login_msg.className = "text-red-700 font-extrabold";
+		login_msg.id = "warning_msg";
+		post_comment.after(login_msg);
+
+	}
+	else{
 	let commentAJAX = new XMLHttpRequest();
 
 	commentAJAX.onerror = function(e) {
@@ -31,10 +44,11 @@ function post_comment_func(){
                 	console.log(this.status);
         	}
 	}
+	
 
 	commentAJAX.open("GET", `add_comment?forum_id=${forum_id}&username=${username}&comment_desc=${comment_textfield.value}&email=${email}`);
 	commentAJAX.send();
-}
+}}
 
 let AJAX = new XMLHttpRequest();
 
