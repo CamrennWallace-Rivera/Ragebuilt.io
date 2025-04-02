@@ -6,6 +6,8 @@ const forum_id = sessionStorage.getItem("selected_forum");
 var comment_textfield = document.getElementById("new-comment");
 const post_comment = document.getElementById("submit-comment");
 const username = sessionStorage.getItem("username");
+const div_above_img = document.getElementById("div_above_img");
+
 
 console.log("forum_id: "+ forum_id);
 console.log("username: " + username);
@@ -48,6 +50,8 @@ AJAX.onload = function() {
 		const page_username = json.username;
 		const page_content = json.description;
 		const page_date_created = json.created_at;
+		const photo = json.filepath
+		console.log("file path: " + photo);
 
 		const localDate = new Date(page_date_created);
 
@@ -55,6 +59,11 @@ AJAX.onload = function() {
 		post_username.innerHTML = "@" + page_username;
 		post_content.innerHTML = page_content;
 		post_date.innerHTML = localDate.toLocaleString();
+		if (photo !== null) {
+			const image_tag = document.createElement("img");
+			image_tag.src = photo;
+			div_above_img.after(image_tag);
+		}
 	}
 	else{
 		console.log(this.status);

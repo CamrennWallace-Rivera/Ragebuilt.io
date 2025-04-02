@@ -7,6 +7,7 @@ const mysql = require("mysql2");
 const hostname = '0.0.0.0';
 const port = 80;
 const url = require('url');
+const formidable = require('formidable');
 
 const connectionObj = {
 	host     : '34.28.200.137',
@@ -39,7 +40,9 @@ function determineContentType(fileNamePath){
 
 
 function writeOut(fileNamePath, res){
-        fs.readFile("public"+fileNamePath, function(err,content){
+	const filePath = fileNamePath.includes("splee6177") ? fileNamePath : "public" + fileNamePath;
+
+        fs.readFile(filePath, function(err,content){
                 if (err) {
                         return console.log(err);
                 }
@@ -112,6 +115,7 @@ function handleRegistration(queryObj, res) {
 }
 
 function create_forum_post(queryObj, res){
+	console.log("queryObj.filepath: " +  queryObj.filepath);
 	let connection_pool = mysql.createPool(connectionObj);
 	console.log(`INSERT INTO forums(title, description, email) VALUES ('${queryObj.title}', '${queryObj.description}', '${queryObj.email}')`);
 	connection_pool.query(`INSERT INTO forums(title, description, email) VALUES ('${queryObj.title}', '${queryObj.description}', '${queryObj.email}')`,
@@ -126,14 +130,14 @@ function create_forum_post(queryObj, res){
 			res.writeHead(200, {"Content-Type" : "text/plain"});
 			res.write("Successfully created forum.");
 			res.end();
-		}
+			}
 	})
-}
+	}
 
 function get_forum_posts(queryObj, res) {
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query("SELECT forums.title, user.username, forums.created_at, forums.forum_id FROM user JOIN forums ON user.email=forums.email ORDER BY RAND() LIMIT 5;", function(error, results, fields) {
+	connection_pool.query("SELECT forums.title, user.username, forums.created_at, forums.forum_id FROM user JOIN forums ON user.email=forums.email ORDER BY forums.title DESC;", function(error, results, fields) {
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -151,7 +155,7 @@ function get_forum_posts(queryObj, res) {
 function display_forum_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, user.username FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
+	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -225,8 +229,7 @@ function search_query(queryObj, res){
 	`SELECT forums.title, user.username, forums.created_at, forums.forum_id
    FROM user
    JOIN forums ON user.email = forums.email
-   WHERE forums.title LIKE CONCAT('%', ?, '%')
-   LIMIT 5;`,
+   WHERE forums.title LIKE CONCAT('%', ?, '%');`,
   [queryObj.search_query], function(error, results, fields){
 		if(error){
 			console.log(error);
@@ -237,6 +240,37 @@ function search_query(queryObj, res){
 			connection_pool.end();
 			res.writeHead(200, {"Content-Type" : "application/json"});
 			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+}
+
+function upload_img(req, res){
+	var form = new formidable.IncomingForm();	
+	form.parse(req, function(err, fields, files) {
+		var oldpath = files.filetoupload[0].filepath;
+		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+		console.log("file path: " + newpath);
+		fs.rename(oldpath, newpath, function(e) {
+			if(e) throw err;		
+		})
+		post_save_img(fields, res, newpath);
+	})
+}
+
+function post_save_img(queryObj, res, filepath){
+	let connection_pool = mysql.createPool(connectionObj);
+	console.log("in post_save_img function.");
+	connection_pool.query(`INSERT INTO forums(title, description, email, filepath) VALUES ('${queryObj.title}', '${queryObj.content}', '${queryObj.email}', '${filepath}')`,
+	function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.write("Successful input filepath into database.")
 			res.end();
 		}
 	})
@@ -299,6 +333,9 @@ function handle_incoming_request(req, res){
 			break;
 		case "/search_forum":
 			search_query(queryObj, res);
+			break;
+		case "/fileupload":
+			upload_img(req, res);
 			break;
 		default:
 			writeOut(path, res);

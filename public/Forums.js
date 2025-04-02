@@ -17,11 +17,12 @@ function search_forums() {
 
 	AJAX.onload = function() {
 		if(this.status == 200){
+			const forum_divs = document.querySelectorAll(".forum-box");
 			var json = JSON.parse(this.responseText);
 			console.log("Res text: " + this.responseText);
-			delete_forums(json);
+			delete_forums(json, forum_divs);
 			populate_forums(json);
-
+			set_forum_ids(json);
 		}
 		else{
 			console.log(this.status);
@@ -32,13 +33,8 @@ function search_forums() {
 	AJAX.send();
 }
 
-function delete_forums(response){
-	for(let i = 0; i < 5; i++){
-		const innerPs = divs[i].querySelectorAll("div > p");
-		innerPs[0].innerHTML = "";
-		innerPs[1].innerHTML = "";
-		innerPs[2].innerHTML = "";
-	}
+function delete_forums(response, forum_divs){
+	forum_divs.forEach(forum => forum.remove());
 }
 
 function create_post(){
@@ -88,6 +84,29 @@ AJAX.open("GET", url + "get_forum_posts");
 AJAX.send();
 
 function populate_forums(response){
+	const search_bar = document.getElementById("search");
+	let t = 125;
+	for (let i = 0; i < response.length; i++){
+		var localDate = new Date(response[i].created_at);
+
+		forum_HTML = `<div class="forum-box absolute right-[-800px] top-[${t}%] px-5 py-3 w-[600px] h-[60px]  bg-gray-300 rounded-lg border border-gray-400 mt-4 cursor-pointer">
+        	<p class="text-gray-700 font-bold">${response[i].title}</p>
+        	<div class="flex items-center justify-between">
+        	<p class="text-gray-700 text-xs">${response[i].username} </p>
+        	<p class="text-gray-700 text-xs">${localDate.toLocaleString()}  </p>
+        	</div>
+    		</div>`
+		search_bar.insertAdjacentHTML('afterend', forum_HTML);
+		let forumElement = search_bar.nextElementSibling; 
+        	forumElement.addEventListener("click", () => click_on_post(i+1))
+		t = t + 100;
+	}
+}
+
+
+/*
+function populate_forums(response){
+	const search_bar = document.getElementById("search");
 	for (let i = 0; i < response.length; i++) {
 		var localDate = new Date(response[i].created_at);
 
@@ -100,6 +119,8 @@ function populate_forums(response){
 		divs[i].addEventListener('click', () => click_on_post(i+1))
 		}
 	}
+
+*/
 
 
 function set_forum_ids(response){

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/CamrennWallace-Rivera/Ragebuilt.io#readme",
   "dependencies": {
+    "formidable": "^3.5.2",
     "mysql2": "^3.14.0"
   }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Post</title>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -44,17 +44,22 @@
                     <textarea id="content" class="border border-gray-400 rounded-md p-2 mt-2" placeholder="Content"></textarea>
                 </div>
                 <div class="flex flex-col mt-4">
-                    <label for="photo" class="text-lg font-semibold">Upload Photo</label>
+		<label for="photo" class="text-lg font-semibold">Upload Photo</label>
+                    <form action="fileupload" method="post" enctype="multipart/form-data">
                     <div class="border-1 border-gray-400 rounded-md p-2 mt-2">
-                    <input 
+                    <input
                         id="photo"
-                        type="file" 
-                        accept="image/png, image/jpg, image/jpeg" 
+                        name="filetoupload"
+                        type="file"
+                        accept="image/png, image/jpg, image/jpeg"
                         class="hover:file:bg-blue-500
                         file:mr-4 file:rounded-md file:border-0
-                        file:bg-blue-600 file:text-white file:px-4 
+                        file:bg-blue-600 file:text-white file:px-4
                         file:py-2 file:cursor-pointer cursor-pointer"
                     >
+                    <input type="submit" class="cursor-pointer transition duration-200 ease-in-out hover:text-blue-500">
+                    </form>
+                </div>
                     </div>
                 </div>
                 <div class="flex justify-center mt-4">

@@ -1,22 +1,61 @@
 const submit = document.getElementById("submit_button");
 const url = 'http://34.135.190.211/';
+const picture = document.getElementById("photo");
+
+/*
+picture.addEventListener('change', (e) => {
+	e.preventDefault();
+	const file = picture.files[0];
+	console.log(file);
+
+	const formData = new FormData();
+	formData.append('filetoupload', file);
+
+	fetch("/fileupload", {
+		method: "POST",
+		body: formData,
+	})
+	.then(response => response.text())
+	.then(data => {
+		console.log("server response: ", data);
+	})
+	.catch(error => console.error("upload failed: ", error));
+});
+*/
+function upload_pic(file){
+	console.log(file);
+
+	const formData = new FormData();
+	formData.append('filetoupload', file);
+	formData.append('title', document.getElementById("title").value);
+	formData.append('content', document.getElementById("content").value);
+	formData.append('email', email);
+
+	fetch("/fileupload", {
+		method: "POST",
+		body: formData,
+	})
+	.then(response => response.text())
+	.then(data => {
+		console.log("Server response: ", data);
+	})
+	window.location.href = 'Forums.html';
+}
 
 submit.addEventListener('click', (e) => {
 	e.preventDefault();
 	const title = document.getElementById("title").value;
 	const content = document.getElementById("content").value;
 	const picture = document.getElementById("photo");
-	var email = sessionStorage.getItem("email");
-	let formData = new FormData();
-	let AJAX = new XMLHttpRequest();
 
-
-	formData.append("title", title);
-	formData.append("description", content);
-
+	console.log("picture.files: " + picture.files);
 	if(picture.files.length > 0) {
-		formData.append("photo", picture.files[0]);
+		console.log("Exists : " + picture.files[0]);
+		upload_pic(picture.files[0]);
 	}
+	else{
+	var email = sessionStorage.getItem("email");
+	let AJAX = new XMLHttpRequest();
 
 	AJAX.onerror = function(e) {
 		alert("Error." + e)
@@ -33,7 +72,7 @@ submit.addEventListener('click', (e) => {
 	}
 	
 	AJAX.open("POST", "/forum_post?title="+title+"&description="+content+"&email="+email, true);
-	//AJAX.open("GET", url + "forum_post?title="+title+"&description="+content);
-	//console.log(url + "forum_post?title="+title+"&description="+content);
 	AJAX.send();
+	}
 });
+
