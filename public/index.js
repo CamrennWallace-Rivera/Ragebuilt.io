@@ -19,6 +19,8 @@ if (isLoggedin == "true") {
 
 logout.addEventListener('click', function() {
 	sessionStorage.setItem("isLoggedin", "false");
+	sessionStorage.setItem("email", "none");
+	sessionStorage.setItem("username", "none");
 })
 
 async function set_profile_picture(){
@@ -28,7 +30,6 @@ async function set_profile_picture(){
 			throw new Error("error.");
 		}
 		const data = await response.json();
-		console.log("Data: " + data[0][0]);
 		if(data[0].profile_pic == null){
 			profile_picture.src = 'default_pfp.jpg';
 		}
