@@ -27,8 +27,8 @@ signUpBtn.addEventListener("click", (e) => {
 			alert(this.status);
 			console.log("error");
 	}}
-	AJAX.open("GET", url + "signup?email="+email.value+"&username="+username.value+"&password="+pw.value);
-	console.log("GET", url + "signup?email="+email.value+"&username="+username.value+"&password="+pw.value);
+	AJAX.open("GET", "signup?email="+email.value+"&username="+username.value+"&password="+pw.value);
+	console.log("GET", "signup?email="+email.value+"&username="+username.value+"&password="+pw.value);
 	AJAX.send();
 });
 

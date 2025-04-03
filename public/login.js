@@ -31,8 +31,8 @@ signInBtn.addEventListener("click", (e) => {
                 else{
                         console.log("error");
         }}
-        AJAX.open("GET", url + "login?email="+email.value+"&password="+pw.value);
-        console.log("GET", url + "login?email="+email.value+"&password="+pw.value);
+        AJAX.open("GET", "login?email="+email.value+"&password="+pw.value);
+        console.log("GET", "login?email="+email.value+"&password="+pw.value);
         AJAX.send();
 
 });
