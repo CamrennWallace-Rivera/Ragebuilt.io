@@ -80,7 +80,7 @@ AJAX.onload = function() {
 	}
 }
 
-AJAX.open("GET", url + "get_forum_posts");
+AJAX.open("GET", "get_forum_posts");
 AJAX.send();
 
 function populate_forums(response){
