@@ -93,7 +93,7 @@ function populate_forums(response){
         	<p class="text-gray-700 font-bold">${response[i].title}</p>
         	<div class="flex items-center justify-between">
         	<p class="text-gray-700 text-xs">${response[i].username} </p>
-        	<p class="text-gray-700 text-xs">${localDate.toLocaleString()}  </p>
+        	<p class="text-gray-700 text-xs">Posted on ${localDate.toLocaleString()}  </p>
         	</div>
     		</div>`
 		search_bar.insertAdjacentHTML('afterend', forum_HTML);

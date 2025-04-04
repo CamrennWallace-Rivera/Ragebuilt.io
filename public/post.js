@@ -1,5 +1,4 @@
 const submit = document.getElementById("submit_button");
-const url = 'http://34.135.190.211/';
 const picture = document.getElementById("photo");
 
 function upload_pic(file){

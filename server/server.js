@@ -276,6 +276,25 @@ function post_save_img(queryObj, res, filepath){
 	})
 }
 
+function save_img_user_table(queryObj, res, filepath){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`UPDATE user SET profile_desc='${queryObj.description[0]}', profile_pic='${filepath}' WHERE email='${queryObj.email[0]}'`,
+		function(error, results, fields){
+			if(error){
+				console.log(error);
+				connection_pool.end();
+				res.end();
+			}
+			else{
+				connection_pool.end();
+				res.writeHead(200, {"Content-Type" : "text/plain"});
+				res.write("Successfully updated description / filepath!");
+				res.end();
+			}
+		})
+	}
+
+
 function profile_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
 	connection_pool.query(`SELECT username, profile_pic, profile_desc FROM user WHERE email='${queryObj.email}'`, function(error, results, fields){
@@ -293,6 +312,40 @@ function profile_page(queryObj, res){
 	})
 }
 
+function update_profile_page(req, res){
+	var form = new formidable.IncomingForm();
+       	form.parse(req, function(err, fields, files) {
+		if(fields.photo_exists[0] == "true"){
+		
+			var oldpath ='' + files.filetoupload[0].filepath;
+			console.log("oldpath: " + oldpath);
+               		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+                	console.log("file path: " + newpath);
+                	fs.rename(oldpath, newpath, function(e) {
+                        	if(e) throw err;
+                	})
+			save_img_user_table(fields, res, newpath);
+		}
+		else{
+			let connection_pool = mysql.createPool(connectionObj);
+			connection_pool.query(`UPDATE user SET profile_desc='${fields.description[0]}' WHERE email='${fields.email[0]}'`,
+				function(error, results, fields) {
+					if(error){
+						console.log(error);
+						connection_pool.end();
+						res.end();
+					}
+					else{
+						connection_pool.end();
+						res.writeHead(200, {"Content-Type" : "text/plain"});
+						res.write("Only updated profile description.");
+						res.end();
+					}
+				})
+			
+		}
+        })
+}
 
 function handle_incoming_request(req, res){
 	console.log(req.url);
@@ -356,6 +409,9 @@ function handle_incoming_request(req, res){
 			break;
 		case "/request_profile":
 			profile_page(queryObj, res);
+			break;
+		case "/update_profile":
+			update_profile_page(req, res);
 			break;
 		default:
 			writeOut(path, res);

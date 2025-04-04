@@ -29,7 +29,7 @@ function editProfile(){
                 <!-- Hover Text -->
                 <div class="cursor-pointer absolute inset-0 flex items-center justify-center bg-opacity-50 text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <img src="edit_logo.png">
-		    <input type="file" id="profile_pic_input" name="profile_pic_input" class="hidden">
+		    <input type="file" accept="image/*" id="profile_pic_input" name="profile_pic_input" class="hidden">
                 </div>
        		 </label>
        		 </div>`;
@@ -43,16 +43,8 @@ function editProfile(){
 		console.log("Exiting editing mode. ");
 		profilePic = document.getElementById("profile_pic");
 		description  = document.getElementById("description");
-		const fileInput = document.getElementById("profile_pic_input");
-		const file = fileInput?.files[0];
-		if(file){
-			formData.append("profile_pic", file);
-		}
 
-		fetch("/update")
-
-		const formData = new FormData();
-		formData.append("description", description.value);
+		save_profile_changes(description);
 
 		var original_pic = `<img id="profile_pic" src="${profilePic.src}" class="w-110 h-80 border-3 ml-12">`;
 		const image_input_div = document.getElementById("image_input_div");
@@ -64,6 +56,34 @@ function editProfile(){
 	}
 }
 
+async function save_profile_changes(description){
+	try{
+		const fileInput = document.getElementById("profile_pic_input");
+		const file = fileInput?.files[0];
+		const formData = new FormData();
+		if(file){
+			console.log(file + " file");
+			formData.append("filetoupload", file);
+			formData.append("photo_exists", "true");
+		}
+		else{formData.append("photo_exists", "false");}
+		formData.append("description", description.value);
+		formData.append("email", email);
+		const response = await fetch(`/update_profile`,{
+			method: "POST",
+			body: formData
+		});
+		if(!response.ok){
+			throw new Error(response.status);
+		}
+		const data = await response.text();
+		console.log("responding data: " + data);
+	}
+	catch(error){
+		console.error(error);
+	}
+
+}
 
 function display_profile_picture(){
 	const file = event.target.files[0];
