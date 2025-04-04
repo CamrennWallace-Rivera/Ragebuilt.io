@@ -7,9 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="VehicleBuilder.css">
 </head>
-
-
-<body class="bg-gray-100">
+<body class="min-h-screen bg-gray-100 flex items-center justify-center pt-24">
         <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
         <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-[Agbalumo] font-semibold text-lg">RageBuilt.io</a>
         <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
@@ -34,8 +32,39 @@
         </div>
     </nav>
 
-<!-- Vehicle Builder Text -->
-<h1 class="font-[Agbalumo] mt-[85px] ml-[35px] text-6xl font-bold leading-tight">Vehicle Builder</h1>
-<p class="font-[Agbalumo] mt-[20px] ml-[35px] text-3xl font-bold">Select The Parts for Your Build!</p>
+<body>
+    <div class="max-w-4xl mx-auto p-6">
+        <h2 class="text-2xl font-bold mb-6">Step 2: Add Media, Comments, and Specs</h2>
+
+        <!-- Media Upload Section -->
+        <div class="mb-6">
+            <label for="mediaUpload" class="block text-lg font-semibold mb-2">Upload Images/Videos:</label>
+            <input type="file" id="mediaUpload" name="media" accept="image/*, video/*" multiple class="border border-gray-300 rounded p-2 w-full text-sm text-gray-700 mb-4">
+            <div id="mediaPreview" class="flex gap-4 flex-wrap"></div>
+        </div>
+
+        <!-- Owner Comments Section -->
+        <div class="mb-6">
+            <label for="ownerComments" class="block text-lg font-semibold mb-2">Owner Comments:</label>
+            <textarea id="ownerComments" name="comments" rows="4" class="border border-gray-300 rounded p-4 w-full text-sm text-gray-700 placeholder-gray-400" placeholder="Share your thoughts about this build..."></textarea>
+        </div>
+
+        <!-- Additional Specs Section -->
+        <div class="mb-6">
+            <label for="additionalSpecs" class="block text-lg font-semibold mb-2">Additional Specs:</label>
+            <textarea id="additionalSpecs" name="specs" rows="4" class="border border-gray-300 rounded p-4 w-full text-sm text-gray-700 placeholder-gray-400" placeholder="Add any additional specs or modifications..."></textarea>
+            <button id="addSpecBtn" type="button" class="mt-2 text-sm bg-blue-500 text-white rounded py-2 px-4 hover:bg-blue-600">Add More Specs</button>
+            <div id="additionalSpecsContainer" class="mt-4"></div>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="flex justify-between mt-6">
+            <button type="button" class="w-1/3 bg-gray-500 text-white rounded py-2 hover:bg-gray-600">Back</button>
+            <button type="submit" class="w-1/3 bg-blue-500 text-white rounded py-2 hover:bg-blue-600">Next</button>
+        </div>
+    </div>
+
+    <!-- Include the external JavaScript file -->
+    <script src="vehicleBuilder.js"></script>
 </body>
 </html>
