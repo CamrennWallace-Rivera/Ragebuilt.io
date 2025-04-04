@@ -1,3 +1,3 @@
 use ragebuilt;
 
-DELETE FROM forums WHERE forum_id = 1;
+DELETE FROM comments WHERE comment_desc = "";

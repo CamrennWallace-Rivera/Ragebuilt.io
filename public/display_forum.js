@@ -13,7 +13,8 @@ console.log("forum_id: "+ forum_id);
 post_comment.addEventListener('click', post_comment_func);
 
 function post_comment_func(){
-	if (isLoggedin == "false"){
+	console.log(isLoggedin);
+	if (isLoggedin == "false" || isLoggedin == null){
 		const login_msg_check = document.getElementById("warning_msg");
 		if (login_msg_check){
 			login_msg_check.remove();
@@ -27,6 +28,19 @@ function post_comment_func(){
 
 	}
 	else{
+		console.log(comment_textfield.value);
+		if(comment_textfield.value == ""){
+			const login_msg_check2 = document.getElementById("warning_msg2");
+			if (login_msg_check2){
+				login_msg_check.remove();
+			}
+			const login_msg2 = document.createElement("p");
+			login_msg2.innerHTML = "Enter text to post comment.";
+			login_msg2.className = "text-red-700 font-extrabold";
+			login_msg2.id = "warning_msg2";
+			post_comment.after(login_msg2);
+		}
+		else{
 	let commentAJAX = new XMLHttpRequest();
 
 	commentAJAX.onerror = function(e) {
@@ -47,7 +61,7 @@ function post_comment_func(){
 
 	commentAJAX.open("GET", `add_comment?forum_id=${forum_id}&username=${username}&comment_desc=${comment_textfield.value}&email=${email}`);
 	commentAJAX.send();
-}}
+}}}
 
 let AJAX = new XMLHttpRequest();
 
