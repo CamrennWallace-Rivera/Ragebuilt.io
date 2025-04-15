@@ -406,15 +406,46 @@ function submit_vb(queryObj, res){
 	    if (err) {
 		console.error("Error inserting into vehicle_builds:", err);
 		connection_pool.end();
+		res.writeHead(200, {"Content-Type" : "text/plain"});
+		res.write("Error inserting values into DB.");
+		res.end();
 	    } else {
 		console.log("Insert successful:", results);
+	        console.log("inserted id: " + results.insertId);
 		connection_pool.end();
+		res.writeHead(200, {"Content-Type" : "application/json"});
+		res.write(JSON.stringify({vb_id : results.insertId}));
+		res.end();
 	    }
 	});
 
-	res.writeHead(200, {"Content-Type" : "text/plain"});
-	res.write("Values inserted successfully into database!")
-	res.end();
+	
+}
+
+function populate_vb(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`SELECT * FROM vehicle_builds WHERE vb_id=${queryObj.vb_id};`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			console.log("results: " + results);
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+
+}
+
+function completed_builds(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`SELECT * FROM vehicle_builds LIMIT 3`)
+
+	
 }
 
 function handle_incoming_request(req, res){
@@ -485,6 +516,12 @@ function handle_incoming_request(req, res){
 			break;
 		case "/submit-vb":
 			submit_vb(queryObj, res);
+			break;
+		case "/populate_vb":
+			populate_vb(queryObj, res);
+			break;
+		case "/completed_builds":
+			completed_builds(queryObj, res);
 			break;
 		default:
 			writeOut(path, res);

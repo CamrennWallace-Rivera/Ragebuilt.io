@@ -41,6 +41,9 @@ document.getElementById("submit_vb").addEventListener('click', function(e) {
 	}
 	AJAX.onload = function() {
 		if(this.status == 200){
+			let response = JSON.parse(this.responseText);
+			sessionStorage.setItem("vb_id", response.vb_id);
+			console.log("VB ID: " + this.responseText);
 			window.location.href = 'UserVehiclePost.html';
 		}
 		else{
