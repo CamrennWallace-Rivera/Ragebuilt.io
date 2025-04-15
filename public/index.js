@@ -1,5 +1,6 @@
 const isLoggedin = sessionStorage.getItem("isLoggedin");
 const email = sessionStorage.getItem("email");
+const uname = sessionStorage.getItem("username");
 const logout = document.getElementById("logout");
 console.log("Is logged in: " + isLoggedin);
 console.log("email: " + email);

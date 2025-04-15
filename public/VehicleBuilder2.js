@@ -21,3 +21,33 @@ document.getElementById('mediaUpload').addEventListener('change', function(event
         previewContainer.appendChild(mediaElement);
     });
 });
+
+document.getElementById("go_back").addEventListener('click', function(e) {
+	window.location.href = 'VehicleBuilder.html';
+})
+
+document.getElementById("submit_vb").addEventListener('click', function(e) {
+	console.log("clicked submit.");
+	const vehicle_build_name = document.getElementById("vehicleBuildname").value;
+	const own_comments = document.getElementById("ownerComments").value;
+	const buildData = JSON.parse(sessionStorage.getItem("buildData"));
+	const additional_specs = document.getElementById("additionalSpecs").value;
+	const vehicle_price = document.getElementById("vehicle_price").value;
+
+	let AJAX = new XMLHttpRequest();
+
+	AJAX.onerror = function(e) {
+		alert("Error : " + e)
+	}
+	AJAX.onload = function() {
+		if(this.status == 200){
+			window.location.href = 'UserVehiclePost.html';
+		}
+		else{
+			console.log("Some error.");
+		}
+	}
+	AJAX.open("GET", `submit-vb?vb_name=${vehicle_build_name}&email=${email}&username=${uname}&vehicle_price=${vehicle_price}&owner_comments=${own_comments}&additional_specs=${additional_specs}&brakes_name=${buildData.brakes.name}&brakes_price=${buildData.brakes.price}&brakes_store=${buildData.brakes.store}&muffler_name=${buildData.muffler.name}&muffler_price=${buildData.muffler.price}&muffler_store=${buildData.muffler.store}&engine_name=${buildData.engine.name}&engine_price=${buildData.engine.price}&engine_store=${buildData.engine.store}&transmission_name=${buildData.transmission.name}&transmission_price=${buildData.transmission.price}&transmission_store=${buildData.transmission.store}&clutch_name=${buildData.clutch.name}&clutch_price=${buildData.clutch.price}&clutch_store=${buildData.clutch.store}&tires_name=${buildData.tires.name}&tires_price=${buildData.tires.price}&tires_store=${buildData.tires.store}`);
+	AJAX.send();
+});
+

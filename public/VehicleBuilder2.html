@@ -23,7 +23,7 @@
                     <img id="profile_picture" src="" alt="Profile" class="w-full h-full object-cover">
                   </button>
                 <!-- Dropdown Menu -->
-                <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity durat>
+                <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity durat">
                   <a href="profile.html" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Profile</a>
                   <a href="index.html" id="logout" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Logout</a>
                   </div>
@@ -43,6 +43,17 @@
             <div id="mediaPreview" class="flex gap-4 flex-wrap"></div>
         </div>
 
+	<div class="mb-6">
+            <label for="vehicleBuildname" class="block text-lg font-semibold mb-2">Vehicle Name</label>
+	    <input type="text" id="vehicleBuildname" name="vehicle-name" placeholder="e.g. Subaru STI 2025" class="w-full max-w-xs px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-black-500" />
+        </div>
+
+	<div class="mb-6">
+            <label for="vehicle_price" class="block text-lg font-semibold mb-2">Vehicle Build Price</label>
+	    <input type="text" id="vehicle_price" name="vehicleprice" placeholder="Vehicle Price (e.g 25000)" class="w-full max-w-xs px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-black-500" />
+        </div>
+
+
         <!-- Owner Comments Section -->
         <div class="mb-6">
             <label for="ownerComments" class="block text-lg font-semibold mb-2">Owner Comments:</label>
@@ -59,12 +70,13 @@
 
         <!-- Buttons Section -->
         <div class="flex justify-between mt-6">
-            <button type="button" class="w-1/3 bg-gray-500 text-white rounded py-2 hover:bg-gray-600">Back</button>
-            <button type="submit" class="w-1/3 bg-blue-500 text-white rounded py-2 hover:bg-blue-600">Next</button>
+            <button type="button" id="go_back" class="w-1/3 bg-gray-500 text-white rounded py-2 hover:bg-gray-600">Back</button>
+            <button type="submit" id="submit_vb" class="w-1/3 bg-blue-500 text-white rounded py-2 hover:bg-blue-600">Next</button>
         </div>
     </div>
 
     <!-- Include the external JavaScript file -->
-    <script src="vehicleBuilder.js"></script>
+    <script src="VehicleBuilder2.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

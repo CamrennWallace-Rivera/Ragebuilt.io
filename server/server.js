@@ -347,6 +347,76 @@ function update_profile_page(req, res){
         })
 }
 
+function sanitizeValue(val) {
+	//This is so if an input field is left blank, we set it to null so the
+	//database can handle it accordingly.
+    return (val === "-----" || val === "" || val === undefined) ? null : val;
+}
+
+
+function submit_vb(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+
+	let sql_query = `
+	INSERT INTO vehicle_builds (
+	    vb_name, vb_price, email, username, owner_comments, additional_specs,
+	    brake_name, brake_price, brake_store,
+	    muffler_name, muffler_price, muffler_store,
+	    engine_name, engine_price, engine_store,
+	    transmission_name, transmission_price, transmission_store,
+	    clutch_name, clutch_price, clutch_store,
+	    tire_name, tire_price, tire_store
+	) VALUES (?, ?, ?, ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?)`;
+
+	let values = [
+	    sanitizeValue(queryObj.vb_name),
+	    sanitizeValue(queryObj.vehicle_price),
+	    sanitizeValue(queryObj.email),
+	    sanitizeValue(queryObj.username),
+	    sanitizeValue(queryObj.owner_comments),
+	    sanitizeValue(queryObj.additional_specs),
+	    sanitizeValue(queryObj.brakes_name),
+	    sanitizeValue(queryObj.brakes_price),
+	    sanitizeValue(queryObj.brakes_store),
+	    sanitizeValue(queryObj.muffler_name),
+	    sanitizeValue(queryObj.muffler_price),
+	    sanitizeValue(queryObj.muffler_store),
+	    sanitizeValue(queryObj.engine_name),
+	    sanitizeValue(queryObj.engine_price),
+	    sanitizeValue(queryObj.engine_store),
+	    sanitizeValue(queryObj.transmission_name),
+	    sanitizeValue(queryObj.transmission_price),
+	    sanitizeValue(queryObj.transmission_store),
+	    sanitizeValue(queryObj.clutch_name),
+	    sanitizeValue(queryObj.clutch_price),
+	    sanitizeValue(queryObj.clutch_store),
+	    sanitizeValue(queryObj.tires_name),
+	    sanitizeValue(queryObj.tires_price),
+	    sanitizeValue(queryObj.tires_store)
+	];
+
+
+	connection_pool.query(sql_query, values, (err, results) => {
+	    if (err) {
+		console.error("Error inserting into vehicle_builds:", err);
+		connection_pool.end();
+	    } else {
+		console.log("Insert successful:", results);
+		connection_pool.end();
+	    }
+	});
+
+	res.writeHead(200, {"Content-Type" : "text/plain"});
+	res.write("Values inserted successfully into database!")
+	res.end();
+}
+
 function handle_incoming_request(req, res){
 	console.log(req.url);
 	const path = url.parse(req.url).pathname;
@@ -412,6 +482,9 @@ function handle_incoming_request(req, res){
 			break;
 		case "/update_profile":
 			update_profile_page(req, res);
+			break;
+		case "/submit-vb":
+			submit_vb(queryObj, res);
 			break;
 		default:
 			writeOut(path, res);
