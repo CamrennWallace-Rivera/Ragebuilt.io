@@ -443,9 +443,19 @@ function populate_vb(queryObj, res){
 
 function completed_builds(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
-	connection_pool.query(`SELECT * FROM vehicle_builds LIMIT 3`)
-
-	
+	connection_pool.query(`SELECT vb_name, username, vb_price FROM vehicle_builds LIMIT 3`, function(error, results, fields) {
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
 }
 
 function handle_incoming_request(req, res){
