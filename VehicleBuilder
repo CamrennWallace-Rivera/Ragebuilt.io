@@ -21,138 +21,124 @@
     </nav>
 
 
-<!-- Vehicle Builder Text -->
-<h1 class="font-[Agbalumo] mt-[85px] ml-[35px] text-6xl font-bold leading-tight">Vehicle Builder</h1>
-<p class="font-[Agbalumo] mt-[20px] ml-[35px] text-3xl font-bold">Select The Parts for Your Build!</p>
+<!-- Main Content Container -->
+<div class="max-w-6xl mx-auto px-6 pt-[90px]">
 
-<!-- Part Name Price From Line -->
-<div class="ml-[105px] mt-[60px] flex w-[900px] text-xl font-bold">
-    <span class="w-[250px]">Part</span>
-    <span class="w-[250px]">Name</span>
-    <span class="w-[250px] text-center">Price</span>
-    <span class="w-[250px] text-center">From</span>
-</div>
+    <!-- Vehicle Builder Header -->
+    <h1 class="font-[Agbalumo] text-6xl font-bold leading-tight">Vehicle Builder</h1> <!-- Reduced font size -->
+    <p class="font-[Agbalumo] mt-5 text-3xl font-bold">Select The Parts for Your Build!</p>
 
-<!-- Engine Info -->
-<hr class="border-t-2 border-black mt-[10px] mx-[35px]">
-<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
-    <span class="w-[250px] flex items-center">
+    <!-- Table Headers -->
+    <div class="mt-14 flex text-xl font-bold gap-x-5">
+      <span class="w-1/4">Part</span>
+      <span class="w-1/4">Name</span>
+      <span class="w-1/4 text-center">Price</span>
+      <span class="w-1/4 text-center">From</span>
+    </div>
+    <hr class="border-t-2 border-black mt-2">
+
+    <!-- Engine Row -->
+    <div class="mt-6 flex text-xl items-center gap-x-5">
+      <span class="w-1/4 flex items-center">
         Engine
-        <button id="engine-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
-            Add+
-        </button>
-    </span>
-    <!--Where the engine line info gets updated/displayed-->
-    <span id="engine-name-display" class="w-[250px]">-----</span>
-    <span id="engine-price-display" class="w-[250px] text-center">-----</span>
-    <span id="engine-store-display" class="w-[250px] text-center">-----</span>
-</div>
+        <button id="engine-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-auto">Add+</button>
+      </span>
+      <span id="engine-name-display" class="w-1/4">-----</span>
+      <span id="engine-price-display" class="w-1/4 text-center">-----</span>
+      <span id="engine-store-display" class="w-1/4 text-center">-----</span>
+    </div>
+    <hr class="border-t-2 border-black mt-6">
 
-<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
-
-<!-- Transmission Info -->
-<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
-    <span class="w-[250px] flex items-center">
+    <!-- Transmission Row -->
+    <div class="mt-6 flex text-xl items-center gap-x-5">
+      <span class="w-1/4 flex items-center">
         Transmission
-        <button id="transmission-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-3">
-            Add+
-        </button>
-    </span>
-    <!--Where the transmission line info gets updated/displayed-->
-    <span id="transmission-name-display" class="w-[250px]">-----</span>
-    <span id="transmission-price-display" class="w-[250px] text-center">-----</span>
-    <span id="transmission-store-display" class="w-[250px] text-center">-----</span>
-</div>
+        <button id="transmission-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-auto">Add+</button>
+      </span>
+      <span id="transmission-name-display" class="w-1/4">-----</span>
+      <span id="transmission-price-display" class="w-1/4 text-center">-----</span>
+      <span id="transmission-store-display" class="w-1/4 text-center">-----</span>
+    </div>
+    <hr class="border-t-2 border-black mt-6">
 
-<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+    <!-- Clutch Row -->
+    <div class="mt-6 flex text-xl items-center gap-x-5">
+      <span class="w-1/4 flex items-center">
+        Clutch
+        <button id="clutch-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-auto">Add+</button>
+      </span>
+      <span id="clutch-name-display" class="w-1/4">-----</span>
+      <span id="clutch-price-display" class="w-1/4 text-center">-----</span>
+      <span id="clutch-store-display" class="w-1/4 text-center">-----</span>
+    </div>
+    <hr class="border-t-2 border-black mt-6">
 
-<!--Clutch Info-->
-<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
-    <span class="w-[250px] flex items-center">
-        Clutch  
-        <button id="clutch-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
-            Add+
-        </button>
-    </span>
-    <!--Where the clutch line info gets updated/displayed-->
-    <span id="clutch-name-display" class="w-[250px]">-----</span>
-    <span id="clutch-price-display" class="w-[250px] text-center">-----</span>
-    <span id="clutch-store-display" class="w-[250px] text-center">-----</span>
-</div>
-
-<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
-
-<!-- Tires/Wheels Line -->
-<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
-    <span class="w-[250px] flex items-center">
+    <!-- Tires/Wheels Row -->
+    <div class="mt-6 flex text-xl items-center gap-x-5">
+      <span class="w-1/4 flex items-center">
         Tires/Wheels
-        <button id="tires-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-3">
-            Add+
-        </button>
-    </span>
-    <!--Where the tires/wheels line info gets updated/displayed-->
-    <span id="tires-name-display" class="w-[250px]">-----</span>
-    <span id="tires-price-display" class="w-[250px] text-center">-----</span>
-    <span id="tires-store-display" class="w-[250px] text-center">-----</span>
-</div>
+        <button id="tires-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-auto">Add+</button>
+      </span>
+      <span id="tires-name-display" class="w-1/4">-----</span>
+      <span id="tires-price-display" class="w-1/4 text-center">-----</span>
+      <span id="tires-store-display" class="w-1/4 text-center">-----</span>
+    </div>
+    <hr class="border-t-2 border-black mt-6">
 
-<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
-
-<!-- Brakes Line -->
-<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
-    <span class="w-[250px] flex items-center">
+    <!-- Brakes Row -->
+    <div class="mt-6 flex text-xl items-center gap-x-5">
+      <span class="w-1/4 flex items-center">
         Brakes
-        <button id="brakes-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-16">
-            Add+
-        </button>
-    </span>
-    <!--Where the brakes line info gets updated/displayed-->
-    <span id="brakes-name-display" class="w-[250px]">-----</span>
-    <span id="brakes-price-display" class="w-[250px] text-center">-----</span>
-    <span id="brakes-store-display" class="w-[250px] text-center">-----</span>
-</div>
+        <button id="brakes-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-auto">Add+</button>
+      </span>
+      <span id="brakes-name-display" class="w-1/4">-----</span>
+      <span id="brakes-price-display" class="w-1/4 text-center">-----</span>
+      <span id="brakes-store-display" class="w-1/4 text-center">-----</span>
+    </div>
+    <hr class="border-t-2 border-black mt-6">
 
-<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
-
-<!-- Muffler Line -->
-<div class="ml-[105px] mt-[15px] flex w-[900px] text-xl items-center">
-    <span class="w-[250px] flex items-center">
+    <!-- Muffler Row -->
+    <div class="mt-6 flex text-xl items-center gap-x-5">
+      <span class="w-1/4 flex items-center">
         Muffler
-        <button id="muffler-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-14">
-            Add+
-        </button>
-    </span>
-    <!--Where the muffler line info gets updated/displayed-->
-    <span id="muffler-name-display" class="w-[250px]">-----</span>
-    <span id="muffler-price-display" class="w-[250px] text-center">-----</span>
-    <span id="muffler-store-display" class="w-[250px] text-center">-----</span>
+        <button id="muffler-add" class="bg-[#2f1970] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#5831cc] ml-auto">Add+</button>
+      </span>
+      <span id="muffler-name-display" class="w-1/4">-----</span>
+      <span id="muffler-price-display" class="w-1/4 text-center">-----</span>
+      <span id="muffler-store-display" class="w-1/4 text-center">-----</span>
+    </div>
+    <hr class="border-t-2 border-black mt-6">
+
 </div>
 
-<hr class="border-t-2 border-black mt-[20px] mx-[35px]">
+
 
 
 <!--Pop Up Windows For the Add Buttons-->
 
-<!-- Engine Popup -->
+
+
+<!-- Popup For Engine-->
 <div id="popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-xl font-bold mb-4">Enter Engine Details</h2>
-        
-        <label class="block mb-2">Enter Engine Name:</label>
-        <input type="text" id="engine-name" class="w-full p-2 border rounded mb-4">
-        <label class="block mb-2">Enter Engine Price:</label>
-        <input type="text" id="engine-price" class="w-full p-2 border rounded mb-4">
-        <label class="block mb-2">Enter Store Name:</label>
-        <input type="text" id="store-name" class="w-full p-2 border rounded mb-4">
-
-        <div class="flex justify-end">
-            <button id="close-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
-            <button id="confirm-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
-        </div>
+      <h2 class="text-xl font-bold mb-4">Enter Engine Details</h2>
+  
+      <label class="block mb-2">Enter Engine Name:</label>
+      <input type="text" id="engine-name" class="w-full p-2 border rounded mb-4">
+      <label class="block mb-2">Enter Engine Price:</label>
+      <input type="text" id="engine-price" class="w-full p-2 border rounded mb-1">
+      <p id="price-error" class="text-red-600 text-sm mb-4 hidden">Please enter a valid number for the price.</p>
+      <label class="block mb-2">Enter Store Name:</label>
+      <input type="text" id="store-name" class="w-full p-2 border rounded mb-4">
+  
+      <div class="flex justify-end">
+        <button id="close-popup" class="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700">Close</button>
+        <button id="confirm-popup" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800">Confirm</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<!--Transmission Popup -->
+<!-- Popup For Transmission-->
 <div id="transmission-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-xl font-bold mb-4">Enter Transmission Details</h2>
@@ -161,6 +147,7 @@
         <input type="text" id="transmission-name" class="w-full p-2 border rounded mb-4">
         <label class="block mb-2">Enter Transmission Price:</label>
         <input type="text" id="transmission-price" class="w-full p-2 border rounded mb-4">
+        <p id="transmission-price-error" class="text-red-600 text-sm mb-4 hidden">Please enter a valid number for the price.</p>
         <label class="block mb-2">Enter Store Name:</label>
         <input type="text" id="transmission-store" class="w-full p-2 border rounded mb-4">
 
@@ -180,6 +167,7 @@
         <input type="text" id="clutch-name" class="w-full p-2 border rounded mb-4">
         <label class="block mb-2">Enter Clutch Price:</label>
         <input type="text" id="clutch-price" class="w-full p-2 border rounded mb-4">
+        <p id="clutch-price-error" class="text-red-600 text-sm mb-4 hidden">Please enter a valid number for the price.</p>
         <label class="block mb-2">Enter Store Name:</label>
         <input type="text" id="clutch-store" class="w-full p-2 border rounded mb-4">
 
@@ -190,6 +178,7 @@
     </div>
 </div>
 
+
 <!-- Tires/Wheels Popup -->
 <div id="tires-popup" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -199,6 +188,7 @@
         <input type="text" id="tires-name" class="w-full p-2 border rounded mb-4">
         <label class="block mb-2">Enter Tires/Wheels Price:</label>
         <input type="text" id="tires-price" class="w-full p-2 border rounded mb-4">
+        <p id="tires-price-error" class="text-red-600 text-sm mb-4 hidden">Please enter a valid number for the price.</p>
         <label class="block mb-2">Enter Store Name:</label>
         <input type="text" id="tires-store" class="w-full p-2 border rounded mb-4">
 
@@ -218,6 +208,7 @@
         <input type="text" id="brakes-name" class="w-full p-2 border rounded mb-4">
         <label class="block mb-2">Enter Brakes Price:</label>
         <input type="text" id="brakes-price" class="w-full p-2 border rounded mb-4">
+        <p id="brakes-price-error" class="text-red-600 text-sm mb-4 hidden">Please enter a valid number for the price.</p>
         <label class="block mb-2">Enter Store Name:</label>
         <input type="text" id="brakes-store" class="w-full p-2 border rounded mb-4">
 
@@ -237,6 +228,7 @@
         <input type="text" id="muffler-name" class="w-full p-2 border rounded mb-4">
         <label class="block mb-2">Enter Muffler Price:</label>
         <input type="text" id="muffler-price" class="w-full p-2 border rounded mb-4">
+        <p id="muffler-price-error" class="text-red-600 text-sm mb-4 hidden">Please enter a valid number for the price.</p>
         <label class="block mb-2">Enter Store Name:</label>
         <input type="text" id="muffler-store" class="w-full p-2 border rounded mb-4">
 
