@@ -1,5 +1,3 @@
-const vb_id = sessionStorage.getItem("vb_id");
-console.log("vb_id being passed to server: " + vb_id);
 
 let AJAX = new XMLHttpRequest();
 
@@ -29,6 +27,8 @@ AJAX.onload = function() {
 		document.getElementById("vb-clutch-name").innerHTML = `<strong>Clutch:</strong> ${vb_data[0].clutch_name}`;
 		document.getElementById("vb-comments").textContent = vb_data[0].owner_comments || "No comments provided.";
 		document.getElementById("vb-specs").textContent = vb_data[0].additional_specs || "No additional specifications provided.";
+		document.getElementById("vb-username").textContent = "@" + vb_data[0].username;
+		document.getElementById("vb_picture").src = vb_data[0].vb_picture || "default_pfp.jpg";
 	}
 
        	else{
@@ -36,5 +36,7 @@ AJAX.onload = function() {
 	}
 }
 
-AJAX.open("GET", `populate_vb?vb_id=${vb_id}`);
+const vehicle_id = sessionStorage.getItem("selected_vb");
+console.log("vb_id being passed to server: " + vehicle_id);
+AJAX.open("GET", `populate_vb?vb_id=${vehicle_id}`);
 AJAX.send();

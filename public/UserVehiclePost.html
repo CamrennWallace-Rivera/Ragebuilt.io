@@ -33,7 +33,7 @@
                 <div class="group flex items-center gap-2">
                   <!-- Profile Picture Button -->
                   <button class="w-8 h-8 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer">
-                    <img src="smaller-DSC_5602-1024x682.jpg" alt="Profile" class="w-full h-full object-cover">
+                    <img id="profile_picture" src="smaller-DSC_5602-1024x682.jpg" alt="Profile" class="w-full h-full object-cover">
                   </button>
                 <!-- Dropdown Menu -->
                 <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200 z-50">
@@ -53,16 +53,15 @@
     <!-- Car Image and Details -->
     <div class="flex flex-col md:flex-row space-y-4 md:space-y-0">
       <div class="w-full md:w-1/2">
-        <img src="2018-subaru-wrx-sti-sport-bc-racing-coilovers-volk-te37.jpg" alt="Subaru WRX STI 2025" class="w-full rounded-lg shadow-lg">
+        <img id="vb_picture" src="2018-subaru-wrx-sti-sport-bc-racing-coilovers-volk-te37.jpg" alt="Subaru WRX STI 2025" class="w-full rounded-lg shadow-lg">
       </div>
       <div class="w-full md:w-1/2 md:pl-6 space-y-4">
         <h1 id="vb-name" class="text-3xl font-bold">Subaru WRX STI 2025</h1>
         <div class="flex items-center text-gray-500">
-          <span id="vb-price" class="text-xl text-gray-700 font-semibold">$300,000</span>
+          <span id="vb-username" class="text-xl text-gray-700 font-semibold">$300,000</span>
           <span class="mx-2 text-gray-400">|</span>
-          <span class="text-blue-500">Extra Information</span>
+          <span id="vb-price" class="text-blue-500">Extra Information</span>
           <span class="mx-2 text-gray-400">|</span>
-          <span class="text-blue-500">Extra Information</span>
         </div>
         <div class="flex flex-wrap space-x-4 text-gray-500">
           <span id="vb-engine-name"><strong>Engine:</strong> 2.4L 4-cylinder</span>
@@ -78,20 +77,7 @@
       <p id="vb-comments" class="text-gray-700">The owner of the vehicle build can post their comments here regarding their car to give their thoughts.</p>
     </div>
 
-    <!-- Timeline Section -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h3 class="text-2xl font-semibold mb-4">Timeline</h3>
-      <ul class="list-disc pl-6 space-y-2 text-gray-700">
-        <li>Added Engine 2/12/2025</li>
-        <li>Added Transmission 2/14/2025</li>
-        <li>Added Tires/Wheels 2/14/2025</li>
-        <li>Added Brakes 2/14/2025</li>
-        <li>Added Clutch 2/15/2025</li>
-        <li>Added Muffler 2/15/2025</li>
-        <li>Completed Build 2/15/2025</li>
-      </ul>
-    </div>
-
+    
     <!-- Additional Specs Section -->
     <div class="bg-white p-6 rounded-lg shadow-lg">
       <h3 class="text-2xl font-semibold mb-4">Additional Specs</h3>
