@@ -136,9 +136,7 @@ async function load_profile_page(){
 		username.innerHTML = "@" + data[0].username;
 		description.innerHTML = data[0].profile_desc;
 		//if there are no VB's, return.
-		if(data.length < 2){
-			return
-		}
+		console.log("data length: " + data.length);
 		for(let i = 0; i < data.length; i++){
 			if(data[i].vb_picture == null){
 				imgs[i].src = 'default_pfp.jpg';
