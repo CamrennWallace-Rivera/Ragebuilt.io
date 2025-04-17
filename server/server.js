@@ -155,7 +155,7 @@ function get_forum_posts(queryObj, res) {
 function display_forum_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username, user.email FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
+	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username, user.email, user.profile_pic FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -172,7 +172,7 @@ function display_forum_page(queryObj, res){
 
 function display_comments(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
-	let sql_query = `select comments.comment_desc, comments.comment_date, user.username, user.email FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
+	let sql_query = `select comments.comment_desc, comments.comment_date, user.username, user.email, user.profile_pic FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
 	connection_pool.query(sql_query, function(error, results, fields){
 		if(error){
 			console.log(error);

@@ -1,3 +1,8 @@
+function route_to_profile(vb_email){
+	sessionStorage.setItem("profile_route_email", vb_email);
+	window.location.href = "profile.html";
+}
+
 
 let AJAX = new XMLHttpRequest();
 
@@ -17,8 +22,6 @@ AJAX.onload = function() {
 			}
 		    });
 		});
-		console.log("transmission name: " + vb_data[0].transmission_name);
-		console.log("clutch price: " + vb_data[0].clutch_price);
 
 		document.getElementById("vb-name").textContent = vb_data[0].vb_name || "No Vehicle Name";
         	document.getElementById("vb-price").textContent = vb_data[0].vb_price ? `$${vb_data[0].vb_price}` : "$0";
@@ -29,6 +32,12 @@ AJAX.onload = function() {
 		document.getElementById("vb-specs").textContent = vb_data[0].additional_specs || "No additional specifications provided.";
 		document.getElementById("vb-username").textContent = "@" + vb_data[0].username;
 		document.getElementById("vb_picture").src = vb_data[0].vb_picture || "default_pfp.jpg";
+		document.getElementById("vb-tires-name").innerHTML =`<strong> Tires: </strong> ${vb_data[0].tire_name}`;
+		document.getElementById("vb-brakes-name").innerHTML = `<strong> Brakes: </strong> ${vb_data[0].brake_name}`;
+		document.getElementById("vb-muffler-name").innerHTML = `<strong> Muffler: </strong> ${vb_data[0].muffler_name}`;
+
+		const vb_email = vb_data[0].email;
+		document.getElementById('vb-username').addEventListener('click', () => route_to_profile(vb_email))
 	}
 
        	else{
