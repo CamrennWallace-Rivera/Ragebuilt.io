@@ -155,7 +155,7 @@ function get_forum_posts(queryObj, res) {
 function display_forum_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
+	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username, user.email FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -172,7 +172,7 @@ function display_forum_page(queryObj, res){
 
 function display_comments(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
-	let sql_query = `select comments.comment_desc, comments.comment_date, user.username FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
+	let sql_query = `select comments.comment_desc, comments.comment_date, user.username, user.email FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
 	connection_pool.query(sql_query, function(error, results, fields){
 		if(error){
 			console.log(error);
@@ -297,7 +297,32 @@ function save_img_user_table(queryObj, res, filepath){
 
 function profile_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
-	connection_pool.query(`SELECT username, profile_pic, profile_desc FROM user WHERE email='${queryObj.email}'`, function(error, results, fields){
+	connection_pool.query(`select user.email, user.username, user.profile_pic, user.profile_desc, vehicle_builds.vb_id, vehicle_builds.vb_name, vehicle_builds.vb_price, vehicle_builds.vb_picture from user join vehicle_builds on user.email=vehicle_builds.email where user.email="${queryObj.email}" LIMIT 4;`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			console.log("profile page results.length: " + results.length);
+			if(results.length == 0){
+				connection_pool.end();
+				profile_page_noVB(queryObj, res);
+			}
+			else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+			}
+		}
+	})
+}
+
+//If your profile has no Vehicle Builders yet
+function profile_page_noVB(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`select email, username, profile_desc, profile_pic from user where user.email="${queryObj.email}"`, function(error, results, fields) {
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -309,8 +334,9 @@ function profile_page(queryObj, res){
 			res.write(JSON.stringify(results));
 			res.end();
 		}
-	})
+	});
 }
+
 
 function update_profile_page(req, res){
 	var form = new formidable.IncomingForm();
@@ -433,7 +459,6 @@ function populate_vb(queryObj, res){
 		else{
 			connection_pool.end();
 			res.writeHead(200, {"Content-Type" : "application/json"});
-			console.log("results: " + results);
 			res.write(JSON.stringify(results));
 			res.end();
 		}

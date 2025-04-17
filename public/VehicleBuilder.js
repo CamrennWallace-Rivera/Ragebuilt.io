@@ -1,7 +1,18 @@
 const next_btn = document.getElementById("next_btn");
-
+const wrapper_div = document.getElementById("wrapper_div");
 next_btn.addEventListener('click', function(e) {
 	e.preventDefault();
+	if(!isLoggedin){
+		if(document.getElementById("must_login")){
+			document.getElementById("must_login").remove();
+		}
+		const must_login = document.createElement("div");
+		must_login.id = "must_login";
+		must_login.innerHTML = "Login to Create a Vehicle Build";
+		must_login.className = "flex ml-2 text-red-600 font-bold justify-center";
+		wrapper_div.after(must_login);
+	}
+	else{
 
 	const buildData = {
 		brakes: {
@@ -38,7 +49,7 @@ next_btn.addEventListener('click', function(e) {
 	//Store dictionary so it stays on the next page to do AJAX request.
 	sessionStorage.setItem("buildData", JSON.stringify(buildData));
 	window.location.href = "VehicleBuilder2.html"; // navigate to next page
-	
+	}
 
 });
 

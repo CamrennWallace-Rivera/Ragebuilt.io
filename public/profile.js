@@ -97,15 +97,36 @@ function display_profile_picture(){
 	}
 }
 
+function clicked_on_vb(vb_id){
+	sessionStorage.setItem("selected_vb", vb_id);
+	window.location.href = "UserVehiclePost.html";
+}
+
 //When adding vehicle builder, need to request car name, price, ownercomments/car description?
 async function load_profile_page(){
 	try {
-		const response = await fetch(`/request_profile?email=${email}`);
+		const imgs = document.querySelectorAll(".vb_img");
+		const vb_name = document.querySelectorAll(".vb_name");
+		const vb_price = document.querySelectorAll(".vb_price");
+		const vb_boxes = document.querySelectorAll(".vb_boxes");
+		let response;
+		if(sessionStorage.getItem("profile_route_email")){
+			//If we are on someone elses profile, then remove edit button.
+			console.log(sessionStorage.getItem("profile_route_email") + " " + email);
+			if(sessionStorage.getItem("profile_route_email") !== email){
+				edit_profile.remove();
+			}
+			var clicked_email = sessionStorage.getItem("profile_route_email");
+			response = await fetch(`/request_profile?email=${clicked_email}`);
+		}
+		else{
+			response = await fetch(`/request_profile?email=${email}`);
+		}
 		if(!response.ok) {
 			throw new Error(response.status);
 		}
 		const data = await response.json();
-		console.log("profile info: " + data[0]);
+		console.log("profile info: ", data);
 		if(data[0].profile_pic == null){
 			profilePic.src = "default_pfp.jpg";
 		}
@@ -114,6 +135,23 @@ async function load_profile_page(){
 		}
 		username.innerHTML = "@" + data[0].username;
 		description.innerHTML = data[0].profile_desc;
+		//if there are no VB's, return.
+		if(data.length < 2){
+			return
+		}
+		for(let i = 0; i < data.length; i++){
+			if(data[i].vb_picture == null){
+				imgs[i].src = 'default_pfp.jpg';
+			}
+			else{
+				imgs[i].src = data[i].vb_picture;
+			}
+			vb_name[i].textContent = data[i].vb_name;
+			vb_price[i].textContent = data[i].vb_price;
+			const vb_id = data[i].vb_id;
+			vb_boxes[i].classList.add('cursor-pointer');
+			vb_boxes[i].addEventListener('click', () => clicked_on_vb(vb_id));
+		}
 	}
 	catch (error){
 		console.error("Error loading profile: ", error);

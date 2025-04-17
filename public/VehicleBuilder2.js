@@ -51,7 +51,7 @@ document.getElementById("submit_vb").addEventListener('click', function(e) {
 				upload_pic(mediaupload.files[0], response.vb_id);
 			}
 			console.log("VB ID: " + this.responseText);
-			window.location.href = 'UserVehiclePost.html';
+		//	window.location.href = 'UserVehiclePost.html';
 		}
 		else{
 			console.log("Some error.");
@@ -69,10 +69,11 @@ async function upload_pic(file, vb_id){
 	formData.append('filetoupload', file);
 	formData.append('vb_id', vb_id);
 
-	const response = await fetch("/fileupload2?check=true", {
+	const response = await fetch("/fileupload?check=true", {
 		method: "POST",
 		body: formData,
 	});
 	const data = await response.text();
 	console.log("data from pic: " + data);
+	window.location.href = 'UserVehiclePost.html';
 }
