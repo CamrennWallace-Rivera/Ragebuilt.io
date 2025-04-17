@@ -2,7 +2,7 @@ const next_btn = document.getElementById("next_btn");
 const wrapper_div = document.getElementById("wrapper_div");
 next_btn.addEventListener('click', function(e) {
 	e.preventDefault();
-	if(!isLoggedin){
+	if(isLoggedin == "false"){
 		if(document.getElementById("must_login")){
 			document.getElementById("must_login").remove();
 		}
