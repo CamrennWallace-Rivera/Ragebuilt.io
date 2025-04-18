@@ -249,7 +249,12 @@ function upload_img(req, res){
 	var form = new formidable.IncomingForm();	
 	form.parse(req, function(err, fields, files) {
 		var oldpath = files.filetoupload[0].filepath;
-		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+		let originalFilename = files.filetoupload[0].originalFilename;
+			let sanitizedFilename = originalFilename
+                	.replace(/\s+/g, '_')         // Replace spaces with underscores
+                	.replace(/[%#&{}\\<>*?/$!'":@+`|=]/g, '') // Remove special characters
+                	.replace(/_{2,}/g, '_');
+               	var newpath = '/home/splee6177/photos/' + sanitizedFilename;
 		console.log("file path: " + newpath);
 		fs.rename(oldpath, newpath, function(e) {
 			if(e) throw err;		
@@ -342,10 +347,13 @@ function update_profile_page(req, res){
 	var form = new formidable.IncomingForm();
        	form.parse(req, function(err, fields, files) {
 		if(fields.photo_exists[0] == "true"){
-		
 			var oldpath ='' + files.filetoupload[0].filepath;
-			console.log("oldpath: " + oldpath);
-               		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+			let originalFilename = files.filetoupload[0].originalFilename;
+			let sanitizedFilename = originalFilename
+                	.replace(/\s+/g, '_')         // Replace spaces with underscores
+                	.replace(/[%#&{}\\<>*?/$!'":@+`|=]/g, '') // Remove special characters
+                	.replace(/_{2,}/g, '_');
+               		var newpath = '/home/splee6177/photos/' + sanitizedFilename;
                 	console.log("file path: " + newpath);
                 	fs.rename(oldpath, newpath, function(e) {
                         	if(e) throw err;
@@ -488,7 +496,12 @@ function upload_img_vb(req, res){
 	form.parse(req, function(err, fields, files) {
 		console.log("fields: " + fields);
 		var oldpath = files.filetoupload[0].filepath;
-		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+		let originalFilename = files.filetoupload[0].originalFilename;
+			let sanitizedFilename = originalFilename
+                	.replace(/\s+/g, '_')         // Replace spaces with underscores
+                	.replace(/[%#&{}\\<>*?/$!'":@+`|=]/g, '') // Remove special characters
+                	.replace(/_{2,}/g, '_');
+               	var newpath = '/home/splee6177/photos/' + sanitizedFilename;
 		console.log("file path: " + newpath);
 		fs.rename(oldpath, newpath, function(e) {
 			if(e) throw err;		
