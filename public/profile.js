@@ -108,7 +108,7 @@ async function load_profile_page(){
 		const imgs = document.querySelectorAll(".vb_img");
 		const vb_name = document.querySelectorAll(".vb_name");
 		const vb_price = document.querySelectorAll(".vb_price");
-		const vb_boxes = document.querySelectorAll(".vb_boxes");
+		//const vb_boxes = document.querySelectorAll(".vb_boxes");
 		let response;
 		if(sessionStorage.getItem("profile_route_email")){
 			//If we are on someone elses profile, then remove edit button.
@@ -127,6 +127,7 @@ async function load_profile_page(){
 		}
 		const data = await response.json();
 		console.log("profile info: ", data);
+		//Populate profile portion of the page
 		if(data[0].profile_pic == null){
 			profilePic.src = "default_pfp.jpg";
 		}
@@ -135,8 +136,26 @@ async function load_profile_page(){
 		}
 		username.innerHTML = "@" + data[0].username;
 		description.innerHTML = data[0].profile_desc;
-		//if there are no VB's, return.
+
+		//Populate vehicle builder portion of the page
 		console.log("data length: " + data.length);
+		const vb = document.getElementById("vehicle_builder");	
+		for(let i = 0; i < data.length; i++){
+			var vb_html = `<div class="vb_boxes border-2 h-100 w-110 ml-12.5 rounded-xl overflow-hidden cursor-pointer">
+            		<p class="vb_name w-full h-10 bg-amber-400 flex justify-center items-center font-bold"> ${data[i].vb_name} </p>
+            		<img src="${data[i].vb_picture}" class="vb_img w-110 h-60">
+           		 <p class="h-10 ml-2"> </p>
+            		<p class="vb_price h-10 ml-2"> ${data[i].vb_price} </p>
+            		<p class="h-10 ml-2">  </p>
+        		</div>`;
+			vb.insertAdjacentHTML('beforeend', vb_html);
+		}
+		const vb_boxes = document.querySelectorAll('.vb_boxes');
+		for(let i = 0; i < data.length; i++){
+			const vb_id = data[i].vb_id;
+			vb_boxes[i].addEventListener('click', () => clicked_on_vb(vb_id));
+		}
+		/*
 		for(let i = 0; i < data.length; i++){
 			if(data[i].vb_picture == null){
 				imgs[i].src = 'default_pfp.jpg';
@@ -150,6 +169,7 @@ async function load_profile_page(){
 			vb_boxes[i].classList.add('cursor-pointer');
 			vb_boxes[i].addEventListener('click', () => clicked_on_vb(vb_id));
 		}
+		*/
 	}
 	catch (error){
 		console.error("Error loading profile: ", error);
