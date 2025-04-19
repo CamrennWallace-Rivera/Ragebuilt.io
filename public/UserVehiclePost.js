@@ -35,6 +35,7 @@ AJAX.onload = function() {
 		document.getElementById("vb-tires-name").innerHTML =`<strong> Tires: </strong> ${vb_data[0].tire_name}`;
 		document.getElementById("vb-brakes-name").innerHTML = `<strong> Brakes: </strong> ${vb_data[0].brake_name}`;
 		document.getElementById("vb-muffler-name").innerHTML = `<strong> Muffler: </strong> ${vb_data[0].muffler_name}`;
+		document.getElementById("vb_picture").classList.add("h-100");
 
 		const vb_email = vb_data[0].email;
 		document.getElementById('vb-username').addEventListener('click', () => route_to_profile(vb_email))

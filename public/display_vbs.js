@@ -29,8 +29,6 @@ function populate_vb_boxes(data){
 	for(let i = 0; i < uname_boxes.length; i++){
 		const vb_id = data[i].vb_id;
 		if(data[i].vb_picture){
-			console.log(`pictures at index[${i}] exists.`);
-			console.log(data[i].vb_picture);
 			vb_pictures[i].src = data[i].vb_picture;
 		}
 		uname_boxes[i].textContent = data[i].username;

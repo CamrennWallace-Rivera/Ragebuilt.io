@@ -140,7 +140,13 @@ async function load_profile_page(){
 		//Populate vehicle builder portion of the page
 		console.log("data length: " + data.length);
 		const vb = document.getElementById("vehicle_builder");	
+		const vb_text = document.getElementById("vb_text");
+		vb_text.innerHTML = `Vehicle Builds (${data.length})`;
 		for(let i = 0; i < data.length; i++){
+			if(!data[i].vb_picture){
+				vb_text.innerHTML = `Vehicle Builds (${data.length-1})`;
+				return;
+			}
 			var vb_html = `<div class="vb_boxes border-2 h-100 w-110 ml-12.5 rounded-xl overflow-hidden cursor-pointer">
             		<p class="vb_name w-full h-10 bg-amber-400 flex justify-center items-center font-bold"> ${data[i].vb_name} </p>
             		<img src="${data[i].vb_picture}" class="vb_img w-110 h-60">

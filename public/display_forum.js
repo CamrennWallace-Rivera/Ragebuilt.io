@@ -79,7 +79,7 @@ AJAX.onerror = function(e) {
 
 AJAX.onload = function() {
 	if(this.status == 200){
-		console.log(this.responseText);
+		console.log("forum data: " + this.responseText);
 		var json = JSON.parse(this.responseText)[0];
 		const user_email = json.email;
 		const page_title = json.title;
@@ -89,7 +89,6 @@ AJAX.onload = function() {
 		const photo = json.filepath
 		const user_prof_pic = json.profile_pic;
 		post_username.addEventListener('click', () => route_profile(user_email));
-		console.log("file path: " + photo);
 
 
 		const localDate = new Date(page_date_created);
@@ -132,7 +131,6 @@ commentAJAX.onload = function() {
 		populateComments(comments);
 		var post_comment_uname = document.querySelectorAll(".post-comment-uname");
 		for(let i = 0; i < post_comment_uname.length; i++){
-			console.log("email: " + comments[i].email);
 			const comment_email = comments[i].email;
 			post_comment_uname[i].addEventListener('click', () => route_profile(comment_email));
 		}
