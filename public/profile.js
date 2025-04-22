@@ -143,7 +143,8 @@ async function load_profile_page(){
 		const vb_text = document.getElementById("vb_text");
 		vb_text.innerHTML = `Vehicle Builds (${data.length})`;
 		for(let i = 0; i < data.length; i++){
-			if(!data[i].vb_picture){
+			//If there is no vb price comes back, there is for sure no VB.
+			if(!data[i].vb_price){
 				vb_text.innerHTML = `Vehicle Builds (${data.length-1})`;
 				return;
 			}
