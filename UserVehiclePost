@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RageBuilt.io - Vehicle Builder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      padding-top: 80px;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
+    <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-[Agbalumo] font-semibold text-lg">RageBuilt.io</a>
+    <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
+    <a href="Forums.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
+    <div class="ml-auto flex gap-2">
+      <a href="login.html" id="login"
+        class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+      <a href="signup.html" id="signup"
+        class="flex w-[80px] h-[30px] justify-center items-center bg-blue-600 hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
+      <div class="relative hidden" id="profilePic">
+        <div class="group flex items-center gap-2">
+          <button class="w-8 h-8 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer">
+            <img id="profile_picture" src="smaller-DSC_5602-1024x682.jpg" alt="Profile" class="w-full h-full object-cover">
+          </button>
+          <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200 z-50">
+            <a href="profile.html" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Profile</a>
+            <a href="index.html" id="logout" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Vehicle Info Section -->
+  <main class="container mx-auto p-8 space-y-6">
+
+    <!-- Car Image and Details -->
+    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0">
+      <div class="w-full md:w-1/2">
+        <img id="vb_picture" src="" alt="" class="w-full rounded-lg shadow-lg">
+      </div>
+
+      <!-- RIGHT SIDE: Title, Price, Specs -->
+      <div class="w-full md:w-1/2 md:pl-6 space-y-4">
+        <h1 id="vb-name" class="text-3xl font-bold"></h1>
+        <div class="flex items-center text-gray-500">
+          <span id="vb-username"
+            class="text-xl text-gray-700 font-semibold cursor-pointer hover:text-blue-600 transition-colors duration-300"></span>
+          <span class="mx-2 text-gray-400">|</span>
+          <span id="vb-price" class="text-blue-500"></span>
+          <span class="mx-2 text-gray-400">|</span>
+        </div>
+
+        <!--Specs Section-->
+        <div class="space-y-4 text-gray-700 mt-4 text-sm">
+          <!-- Engine Specs -->
+          <div>
+            <h2 class="text-xl font-bold mb-2">Engine Specs:</h2>
+            <div class="grid grid-cols-3 font-semibold mb-1">
+              <span>Name</span>
+              <span>Price</span>
+              <span>From</span>
+            </div>
+            <div class="grid grid-cols-3">
+              <span id="vb-engine-name">Example</span>
+              <span id="vb-engine-price">Example</span>
+              <span id="vb-engine-from">Example</span>
+            </div>
+          </div>
+
+          <!-- Transmission Specs -->
+          <div>
+            <h2 class="text-xl font-bold mb-2">Transmission Specs:</h2>
+            <div class="grid grid-cols-3 font-semibold mb-1">
+              <span>Name</span>
+              <span>Price</span>
+              <span>From</span>
+            </div>
+            <div class="grid grid-cols-3">
+              <span id="vb-transmission-name">Example</span>
+              <span id="vb-transmission-price">Example</span>
+              <span id="vb-transmission-from">Example</span>
+            </div>
+          </div>
+
+          <!-- Clutch Specs -->
+          <div>
+            <h2 class="text-xl font-bold mb-2">Clutch Specs:</h2>
+            <div class="grid grid-cols-3 font-semibold mb-1">
+              <span>Name</span>
+              <span>Price</span>
+              <span>From</span>
+            </div>
+            <div class="grid grid-cols-3">
+              <span id="vb-clutch-name">Example</span>
+              <span id="vb-clutch-price">Example</span>
+              <span id="vb-clutch-from">Example</span>
+            </div>
+          </div>
+
+          <!-- Tires Specs -->
+          <div>
+            <h2 class="text-xl font-bold mb-2">Tires Specs:</h2>
+            <div class="grid grid-cols-3 font-semibold mb-1">
+              <span>Name</span>
+              <span>Price</span>
+              <span>From</span>
+            </div>
+            <div class="grid grid-cols-3">
+              <span id="vb-tires-name">Example</span>
+              <span id="vb-tires-price">Example</span>
+              <span id="vb-tires-from">Example</span>
+            </div>
+          </div>
+
+          <!-- Brakes Specs -->
+          <div>
+            <h2 class="text-xl font-bold mb-2">Brakes Specs:</h2>
+            <div class="grid grid-cols-3 font-semibold mb-1">
+              <span>Name</span>
+              <span>Price</span>
+              <span>From</span>
+            </div>
+            <div class="grid grid-cols-3">
+              <span id="vb-brakes-name">Example</span>
+              <span id="vb-brakes-price">Example</span>
+              <span id="vb-brakes-from">Example</span>
+            </div>
+          </div>
+
+          <!-- Muffler Specs -->
+          <div>
+            <h2 class="text-xl font-bold mb-2">Muffler Specs:</h2>
+            <div class="grid grid-cols-3 font-semibold mb-1">
+              <span>Name</span>
+              <span>Price</span>
+              <span>From</span>
+            </div>
+            <div class="grid grid-cols-3">
+              <span id="vb-muffler-name">Example</span>
+              <span id="vb-muffler-price">Example</span>
+              <span id="vb-muffler-from">Example</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Owner Comments Section-->
+    <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
+      <h3 class="text-2xl font-semibold mb-4">Owner Comments</h3>
+      <p id="vb-comments" class="text-gray-700">The owner of the vehicle build can post their comments here regarding their car to give their thoughts.</p>
+    </div>
+
+    <!--Additional Specs Section-->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-2xl font-semibold mb-4">Additional Specs</h3>
+      <p id="vb-specs" class="text-gray-700">User can add additional specs they added in the vehicle builder. Special modifications, etc.</p>
+    </div>
+
+  </main>
+
+  <script src="UserVehiclePost.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
