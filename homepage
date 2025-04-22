@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RageBuilt.io Home Page</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    bg-[#d5d6f2]
+    <nav class="fixed top-0 w-full bg-gray-800 h-[50px] px-4 flex items-center shadow-md text-white text-sm">
+        <a href="index.html" class="flex w-[140px] h-full justify-center items-center font-[Agbalumo] font-semibold text-lg">RageBuilt.io</a>
+        <a href="VehicleBuilder.html" class="flex w-[120px] h-full justify-center items-center font-medium">Vehicle Builder</a>
+        <a href="Forums.html" class="flex w-[120px] h-full justify-center items-center font-medium">Forums</a>
+        <div class="ml-auto flex gap-2">
+            <a href="login.html" id="login" class="flex w-[80px] h-[30px] justify-center items-center bg-[#8084ed] hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Login</a>
+            <a href="signup.html" id="signup" class="flex w-[80px] h-[30px] justify-center items-center bg-[#8084ed] hover:bg-blue-500 text-xs px-2 py-1 rounded-md">Sign Up</a>
+            <div class="relative hidden" id="profilePic">
+                <!-- Wrapper div -->
+                <div class="group flex items-center gap-2">
+                  <!-- Profile Picture Button -->
+                  <button class="w-8 h-8 rounded-full overflow-hidden border-2 border-white focus:outline-none cursor-pointer">
+                    <img id="profile_picture" src="" alt="Profile" class="w-full h-full object-cover">
+                  </button>
+                <!-- Dropdown Menu -->
+                <div class="absolute right-0 mt-40 w-40 bg-white text-black rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200 z-50">
+                  <a href="profile.html" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Profile</a>
+                  <a href="index.html" id="logout" class="block px-4 py-2 text-sm hover:bg-gray-100 flex justify-center">Logout</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </nav>
+    <div class="flex flex-col mt-1 h-100 bg-[#d5d6f2] items-center">
+        <div class="flex flex-col h-full w-210 justify-center">
+            <div class="flex flex-col h-30 w-full">
+                <p class="flex text-4xl justify-center font-bold"> The Home For Garage-Built Vehicles </p>
+                <p class="flex text-2xl justify-center font-extralight"> Share your custom built vehicles with others </p>
+            </div>
+            <div class="flex h-1 w-full justify-center items-center">
+                <a href="VehicleBuilder.html" class="mt-20 border-2 w-50 h-20 rounded-3xl hover:bg-sky-700 transition-colors cursor-pointer flex justify-center items-center font-bold text-2xl"> Start Now </a>
+            </div>
+        </div>
+    </div>
+
+    <div class=" bg-[#2f1970] w-full h-110 flex flex-row">
+        <div class="w-160 flex items-center justify-center">
+            <p class="text-5xl ml-5 font-bold font-[Agbalumo] text-white"> Completed Builds </p>
+        </div>
+        <div class="w-full h-full flex border-2 items-center justify-around">
+            <div class="border-2 h-100 w-110 ml-5 rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='UserVehiclePost.html'"> 
+                <p class="w-full h-10 bg-[#8084ed] flex justify-center items-center text-white font-bold"> 2025 Subaru WRX STI </p>
+                <img src="2018-subaru-wrx-sti-sport-bc-racing-coilovers-volk-te37.jpg" class="w-110 h-60">
+                <p class="h-10 ml-2 text-lg font-[Agbalumo] text-white"> Username: Camrenn Wallace-Rivera </p>
+                <p class="h-10 ml-2 text-lg font-[Agbalumo] text-white"> Price $ 56,500  </p>
+            </div>
+            <div class="border-2 h-100 w-110 ml-5 rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='UserVehiclePost.html'"> 
+                <p class="w-full h-10 bg-[#8084ed] flex justify-center text-white items-center font-bold"> 2025 MUSTANG GTR </p>
+                <img src="9099c223-040b-440b-8b70-d076cde89f12.png" class="w-110 h-60">
+                <p class="h-10 ml-2 text-lg font-[Agbalumo] text-white"> Username: Steven Lee </p>
+                <p class="h-10 ml-2 text-lg font-[Agbalumo] text-white"> Price $56,500 </p>
+            </div>
+            <div class="border-2 h-100 w-110 ml-5 rounded-xl overflow-hidden cursor-pointer" onclick="window.location.href='UserVehiclePost.html'"> 
+                <p class="w-full h-10 bg-[#8084ed] flex justify-center items-center text-white font-bold"> BMW </p>
+                <img src="smaller-DSC_5602-1024x682.jpg" class="w-110 h-60">
+                <p class="h-10 ml-2 text-lg font-[Agbalumo] text-white"> Username: Brian Hathaway  </p>
+                <p class="h-10 ml-2 text-lg font-[Agbalumo] text-white"> Price: $45,000 </p>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
