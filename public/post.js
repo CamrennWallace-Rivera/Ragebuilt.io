@@ -1,7 +1,7 @@
 const submit = document.getElementById("submit_button");
 const picture = document.getElementById("photo");
 
-function upload_pic(file){
+async function upload_pic(file){
 	console.log(file);
 
 	const formData = new FormData();
@@ -10,14 +10,11 @@ function upload_pic(file){
 	formData.append('content', document.getElementById("content").value);
 	formData.append('email', email);
 
-	fetch("/fileupload", {
+	const response = await fetch("/fileupload", {
 		method: "POST",
 		body: formData,
-	})
-	.then(response => response.text())
-	.then(data => {
-		console.log("Server response: ", data);
-	})
+	});
+	const data = await response.text();
 	window.location.href = 'Forums.html';
 }
 

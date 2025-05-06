@@ -40,7 +40,7 @@ function determineContentType(fileNamePath){
 
 
 function writeOut(fileNamePath, res){
-	const filePath = fileNamePath.includes("splee6177") ? fileNamePath : "public" + fileNamePath;
+	const filePath = fileNamePath.includes("splee6177") || fileNamePath.includes("fileupload2") ? fileNamePath : "public" + fileNamePath;
 
         fs.readFile(filePath, function(err,content){
                 if (err) {
@@ -155,7 +155,7 @@ function get_forum_posts(queryObj, res) {
 function display_forum_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
 
-	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
+	connection_pool.query(`SELECT forums.title, forums.description, forums.created_at, forums.filepath, user.username, user.email, user.profile_pic FROM user JOIN forums ON user.email=forums.email WHERE forums.forum_id = ${queryObj.forum_id};`, function(error, results, fields){
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -172,7 +172,7 @@ function display_forum_page(queryObj, res){
 
 function display_comments(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
-	let sql_query = `select comments.comment_desc, comments.comment_date, user.username FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
+	let sql_query = `select comments.comment_desc, comments.comment_date, user.username, user.email, user.profile_pic FROM user JOIN comments ON user.email=comments.email WHERE comments.forum_id = ${queryObj.forum_id};`;
 	connection_pool.query(sql_query, function(error, results, fields){
 		if(error){
 			console.log(error);
@@ -249,7 +249,12 @@ function upload_img(req, res){
 	var form = new formidable.IncomingForm();	
 	form.parse(req, function(err, fields, files) {
 		var oldpath = files.filetoupload[0].filepath;
-		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+		let originalFilename = files.filetoupload[0].originalFilename;
+			let sanitizedFilename = originalFilename
+                	.replace(/\s+/g, '_')         // Replace spaces with underscores
+                	.replace(/[%#&{}\\<>*?/$!'":@+`|=]/g, '') // Remove special characters
+                	.replace(/_{2,}/g, '_');
+               	var newpath = '/home/splee6177/photos/' + sanitizedFilename;
 		console.log("file path: " + newpath);
 		fs.rename(oldpath, newpath, function(e) {
 			if(e) throw err;		
@@ -297,7 +302,32 @@ function save_img_user_table(queryObj, res, filepath){
 
 function profile_page(queryObj, res){
 	let connection_pool = mysql.createPool(connectionObj);
-	connection_pool.query(`SELECT username, profile_pic, profile_desc FROM user WHERE email='${queryObj.email}'`, function(error, results, fields){
+	connection_pool.query(`select user.email, user.username, user.profile_pic, user.profile_desc, vehicle_builds.vb_id, vehicle_builds.vb_name, vehicle_builds.vb_price, vehicle_builds.vb_picture from user join vehicle_builds on user.email=vehicle_builds.email where user.email="${queryObj.email}" LIMIT 4;`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			console.log("profile page results.length: " + results.length);
+			if(results.length == 0){
+				connection_pool.end();
+				profile_page_noVB(queryObj, res);
+			}
+			else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+			}
+		}
+	})
+}
+
+//If your profile has no Vehicle Builders yet
+function profile_page_noVB(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`select email, username, profile_desc, profile_pic from user where user.email="${queryObj.email}"`, function(error, results, fields) {
 		if(error){
 			console.log(error);
 			connection_pool.end();
@@ -309,17 +339,21 @@ function profile_page(queryObj, res){
 			res.write(JSON.stringify(results));
 			res.end();
 		}
-	})
+	});
 }
+
 
 function update_profile_page(req, res){
 	var form = new formidable.IncomingForm();
        	form.parse(req, function(err, fields, files) {
 		if(fields.photo_exists[0] == "true"){
-		
 			var oldpath ='' + files.filetoupload[0].filepath;
-			console.log("oldpath: " + oldpath);
-               		var newpath = '/home/splee6177/photos/' + files.filetoupload[0].originalFilename;
+			let originalFilename = files.filetoupload[0].originalFilename;
+			let sanitizedFilename = originalFilename
+                	.replace(/\s+/g, '_')         // Replace spaces with underscores
+                	.replace(/[%#&{}\\<>*?/$!'":@+`|=]/g, '') // Remove special characters
+                	.replace(/_{2,}/g, '_');
+               		var newpath = '/home/splee6177/photos/' + sanitizedFilename;
                 	console.log("file path: " + newpath);
                 	fs.rename(oldpath, newpath, function(e) {
                         	if(e) throw err;
@@ -346,6 +380,156 @@ function update_profile_page(req, res){
 		}
         })
 }
+
+function sanitizeValue(val) {
+	//This is so if an input field is left blank, we set it to null so the
+	//database can handle it accordingly.
+    return (val === "-----" || val === "" || val === undefined) ? null : val;
+}
+
+
+function submit_vb(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+
+	let sql_query = `
+	INSERT INTO vehicle_builds (
+	    vb_name, vb_price, email, username, owner_comments, additional_specs,
+	    brake_name, brake_price, brake_store,
+	    muffler_name, muffler_price, muffler_store,
+	    engine_name, engine_price, engine_store,
+	    transmission_name, transmission_price, transmission_store,
+	    clutch_name, clutch_price, clutch_store,
+	    tire_name, tire_price, tire_store
+	) VALUES (?, ?, ?, ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?,
+		   ?, ?, ?)`;
+
+	let values = [
+	    sanitizeValue(queryObj.vb_name),
+	    sanitizeValue(queryObj.vehicle_price),
+	    sanitizeValue(queryObj.email),
+	    sanitizeValue(queryObj.username),
+	    sanitizeValue(queryObj.owner_comments),
+	    sanitizeValue(queryObj.additional_specs),
+	    sanitizeValue(queryObj.brakes_name),
+	    sanitizeValue(queryObj.brakes_price),
+	    sanitizeValue(queryObj.brakes_store),
+	    sanitizeValue(queryObj.muffler_name),
+	    sanitizeValue(queryObj.muffler_price),
+	    sanitizeValue(queryObj.muffler_store),
+	    sanitizeValue(queryObj.engine_name),
+	    sanitizeValue(queryObj.engine_price),
+	    sanitizeValue(queryObj.engine_store),
+	    sanitizeValue(queryObj.transmission_name),
+	    sanitizeValue(queryObj.transmission_price),
+	    sanitizeValue(queryObj.transmission_store),
+	    sanitizeValue(queryObj.clutch_name),
+	    sanitizeValue(queryObj.clutch_price),
+	    sanitizeValue(queryObj.clutch_store),
+	    sanitizeValue(queryObj.tires_name),
+	    sanitizeValue(queryObj.tires_price),
+	    sanitizeValue(queryObj.tires_store)
+	];
+
+
+	connection_pool.query(sql_query, values, (err, results) => {
+	    if (err) {
+		console.error("Error inserting into vehicle_builds:", err);
+		connection_pool.end();
+		res.writeHead(200, {"Content-Type" : "text/plain"});
+		res.write("Error inserting values into DB.");
+		res.end();
+	    } else {
+		console.log("Insert successful:", results);
+	        console.log("inserted id: " + results.insertId);
+		connection_pool.end();
+		res.writeHead(200, {"Content-Type" : "application/json"});
+		res.write(JSON.stringify({vb_id : results.insertId}));
+		res.end();
+	    }
+	});
+
+	
+}
+
+function populate_vb(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`SELECT * FROM vehicle_builds WHERE vb_id=${queryObj.vb_id};`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+
+}
+
+function completed_builds(queryObj, res){
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(`SELECT vb_id, vb_name, username, vb_price, vb_picture FROM vehicle_builds ORDER BY RAND() LIMIT 3`, function(error, results, fields) {
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			res.writeHead(200, {"Content-Type" : "application/json"});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	})
+}
+
+function upload_img_vb(req, res){
+	var form = new formidable.IncomingForm();	
+	form.parse(req, function(err, fields, files) {
+		console.log("fields: " + fields);
+		var oldpath = files.filetoupload[0].filepath;
+		let originalFilename = files.filetoupload[0].originalFilename;
+			let sanitizedFilename = originalFilename
+                	.replace(/\s+/g, '_')         // Replace spaces with underscores
+                	.replace(/[%#&{}\\<>*?/$!'":@+`|=]/g, '') // Remove special characters
+                	.replace(/_{2,}/g, '_');
+               	var newpath = '/home/splee6177/photos/' + sanitizedFilename;
+		console.log("file path: " + newpath);
+		fs.rename(oldpath, newpath, function(e) {
+			if(e) throw err;		
+		})
+		//post_save_img(fields, res, newpath);
+		upload_img_vb_update(fields.vb_id, res, newpath);
+	})
+}
+
+function upload_img_vb_update(vb_id, res, newpath){
+	let connection_pool = mysql.createPool(connectionObj);
+	console.log(`vb_id ${vb_id}, newpath ${newpath}`);
+	connection_pool.query(`UPDATE vehicle_builds SET vb_picture = '${newpath}' WHERE vb_id = ${vb_id}`, function(error, results, fields){
+		if(error){
+			console.log(error);
+			connection_pool.end();
+			res.end();
+		}
+		else{
+			connection_pool.end();
+			console.log("Successfully uploaded picture to DB.");
+			res.writeHead(200, {"Content-Type" : "text/plain"});
+			res.write("Uploaded picture successfully");
+			res.end();
+		}
+	})
+}
+
 
 function handle_incoming_request(req, res){
 	console.log(req.url);
@@ -405,13 +589,30 @@ function handle_incoming_request(req, res){
 			search_query(queryObj, res);
 			break;
 		case "/fileupload":
+			if(queryObj.check){
+			upload_img_vb(req, res);
+			}
+			else{
 			upload_img(req, res);
+			}
 			break;
 		case "/request_profile":
 			profile_page(queryObj, res);
 			break;
 		case "/update_profile":
 			update_profile_page(req, res);
+			break;
+		case "/submit-vb":
+			submit_vb(queryObj, res);
+			break;
+		case "/populate_vb":
+			populate_vb(queryObj, res);
+			break;
+		case "/completed_builds":
+			completed_builds(queryObj, res);
+			break;
+		case "/fileupload2":
+			upload_img_vb(req, res);
 			break;
 		default:
 			writeOut(path, res);

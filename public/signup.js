@@ -22,6 +22,29 @@ signUpBtn.addEventListener("click", (e) => {
 			else if(this.responseText == "Email already registered."){
 				duplicateEmails(this.responseText);
 			}
+			else{
+				const pwDiv = document.getElementById("pwDiv");
+				const emptyField = document.getElementById('emptyField');
+				const dupeEmail = document.getElementById('dupeEmail');
+
+				if(emptyField){
+					emptyField.remove();
+				}
+				else if (dupeEmail){
+					dupeEmail.remove();
+				}
+				
+				const successfulRegistration = document.createElement('div');
+				successfulRegistration.id = 'success';
+				successfulRegistration.className = "flex items-center justify-center mt-2";
+				successfulRegistration.innerHTML = `<p class="text-green-500 font-bold"> ${this.responseText} </p>`;
+				const loginNow = document.createElement('div');
+				loginNow.id = 'loginNow';
+				loginNow.className = "flex items-center justify-center mt-2";
+				loginNow.innerHTML = `<p class="text-green-500 font-bold"> Login Now </p>`;
+				pwDiv.after(successfulRegistration);
+				successfulRegistration.after(loginNow);
+			}
 		}
 		else{
 			alert(this.status);

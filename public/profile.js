@@ -97,15 +97,37 @@ function display_profile_picture(){
 	}
 }
 
+function clicked_on_vb(vb_id){
+	sessionStorage.setItem("selected_vb", vb_id);
+	window.location.href = "UserVehiclePost.html";
+}
+
 //When adding vehicle builder, need to request car name, price, ownercomments/car description?
 async function load_profile_page(){
 	try {
-		const response = await fetch(`/request_profile?email=${email}`);
+		const imgs = document.querySelectorAll(".vb_img");
+		const vb_name = document.querySelectorAll(".vb_name");
+		const vb_price = document.querySelectorAll(".vb_price");
+		//const vb_boxes = document.querySelectorAll(".vb_boxes");
+		let response;
+		if(sessionStorage.getItem("profile_route_email")){
+			//If we are on someone elses profile, then remove edit button.
+			console.log(sessionStorage.getItem("profile_route_email") + " " + email);
+			if(sessionStorage.getItem("profile_route_email") !== email){
+				edit_profile.remove();
+			}
+			var clicked_email = sessionStorage.getItem("profile_route_email");
+			response = await fetch(`/request_profile?email=${clicked_email}`);
+		}
+		else{
+			response = await fetch(`/request_profile?email=${email}`);
+		}
 		if(!response.ok) {
 			throw new Error(response.status);
 		}
 		const data = await response.json();
-		console.log("profile info: " + data[0]);
+		console.log("profile info: ", data);
+		//Populate profile portion of the page
 		if(data[0].profile_pic == null){
 			profilePic.src = "default_pfp.jpg";
 		}
@@ -114,6 +136,47 @@ async function load_profile_page(){
 		}
 		username.innerHTML = "@" + data[0].username;
 		description.innerHTML = data[0].profile_desc;
+
+		//Populate vehicle builder portion of the page
+		console.log("data length: " + data.length);
+		const vb = document.getElementById("vehicle_builder");	
+		const vb_text = document.getElementById("vb_text");
+		vb_text.innerHTML = `Vehicle Builds (${data.length})`;
+		for(let i = 0; i < data.length; i++){
+			//If there is no vb price comes back, there is for sure no VB.
+			if(!data[i].vb_price){
+				vb_text.innerHTML = `Vehicle Builds (${data.length-1})`;
+				return;
+			}
+			var vb_html = `<div class="vb_boxes border-2 h-100 w-110 ml-12.5 rounded-xl overflow-hidden cursor-pointer">
+            		<p class="vb_name w-full h-10 bg-amber-400 flex justify-center items-center font-bold"> ${data[i].vb_name} </p>
+            		<img src="${data[i].vb_picture}" class="vb_img w-110 h-60">
+           		 <p class="h-10 ml-2"> </p>
+            		<p class="vb_price h-10 ml-2"> $${data[i].vb_price} </p>
+            		<p class="h-10 ml-2">  </p>
+        		</div>`;
+			vb.insertAdjacentHTML('beforeend', vb_html);
+		}
+		const vb_boxes = document.querySelectorAll('.vb_boxes');
+		for(let i = 0; i < data.length; i++){
+			const vb_id = data[i].vb_id;
+			vb_boxes[i].addEventListener('click', () => clicked_on_vb(vb_id));
+		}
+		/*
+		for(let i = 0; i < data.length; i++){
+			if(data[i].vb_picture == null){
+				imgs[i].src = 'default_pfp.jpg';
+			}
+			else{
+				imgs[i].src = data[i].vb_picture;
+			}
+			vb_name[i].textContent = data[i].vb_name;
+			vb_price[i].textContent = data[i].vb_price;
+			const vb_id = data[i].vb_id;
+			vb_boxes[i].classList.add('cursor-pointer');
+			vb_boxes[i].addEventListener('click', () => clicked_on_vb(vb_id));
+		}
+		*/
 	}
 	catch (error){
 		console.error("Error loading profile: ", error);

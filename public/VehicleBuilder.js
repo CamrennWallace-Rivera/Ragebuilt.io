@@ -1,3 +1,58 @@
+const next_btn = document.getElementById("next_btn");
+const wrapper_div = document.getElementById("wrapper_div");
+next_btn.addEventListener('click', function(e) {
+	e.preventDefault();
+	if(isLoggedin == "false" || isLoggedin == null){
+		if(document.getElementById("must_login")){
+			document.getElementById("must_login").remove();
+		}
+		const must_login = document.createElement("div");
+		must_login.id = "must_login";
+		must_login.innerHTML = "Login to Create a Vehicle Build";
+		must_login.className = "flex ml-2 text-red-600 font-bold justify-center";
+		wrapper_div.after(must_login);
+	}
+	else{
+
+	const buildData = {
+		brakes: {
+			name: document.getElementById('brakes-name-display').textContent,
+			price: document.getElementById('brakes-price-display').textContent.replace('$', ''),
+			store: document.getElementById('brakes-store-display').textContent
+		},
+		muffler: {
+			name: document.getElementById('muffler-name-display').textContent,
+			price: document.getElementById('muffler-price-display').textContent.replace('$', ''),
+			store: document.getElementById('muffler-store-display').textContent
+		},
+		engine: {
+			name: document.getElementById('engine-name-display').textContent,
+			price: document.getElementById('engine-price-display').textContent.replace('$', ''),
+			store: document.getElementById('engine-store-display').textContent
+		},
+		transmission: {
+			name: document.getElementById('transmission-name-display').textContent,
+			price: document.getElementById('transmission-price-display').textContent.replace('$', ''),
+			store: document.getElementById('transmission-store-display').textContent
+		},
+		clutch: {
+			name: document.getElementById('clutch-name-display').textContent,
+			price: document.getElementById('clutch-price-display').textContent.replace('$', ''),
+			store: document.getElementById('clutch-store-display').textContent
+		},
+		tires: {
+			name: document.getElementById('tires-name-display').textContent,
+			price: document.getElementById('tires-price-display').textContent.replace('$', ''),
+			store: document.getElementById('tires-store-display').textContent
+		}
+	};
+	//Store dictionary so it stays on the next page to do AJAX request.
+	sessionStorage.setItem("buildData", JSON.stringify(buildData));
+	window.location.href = "VehicleBuilder2.html"; // navigate to next page
+	}
+
+});
+
 document.addEventListener("DOMContentLoaded", () => {
 
     //This is for the Engine Pop Up
