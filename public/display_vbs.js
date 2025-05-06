@@ -31,9 +31,9 @@ function populate_vb_boxes(data){
 		if(data[i].vb_picture){
 			vb_pictures[i].src = data[i].vb_picture;
 		}
-		uname_boxes[i].textContent = data[i].username;
+		uname_boxes[i].textContent = "@" + data[i].username;
 		vb_name_boxes[i].textContent = data[i].vb_name;
-		vb_price_boxes[i].textContent = data[i].vb_price;
+		vb_price_boxes[i].textContent = "$" + data[i].vb_price;
 		vb_boxes[i].addEventListener('click', () => click_on_vb(vb_id));
 	}
 };

@@ -10,6 +10,7 @@ var signUpBtn = document.getElementById("signup");
 var profile = document.getElementById("profilePic");
 var profile_picture = document.getElementById("profile_picture");
 var profile_tag = document.querySelector("nav > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)");
+console.log(profile_tag);
 
 profile_tag.addEventListener('click', () => {
 	if(sessionStorage.getItem("profile_route_email")){

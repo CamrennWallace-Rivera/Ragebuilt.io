@@ -152,7 +152,7 @@ async function load_profile_page(){
             		<p class="vb_name w-full h-10 bg-amber-400 flex justify-center items-center font-bold"> ${data[i].vb_name} </p>
             		<img src="${data[i].vb_picture}" class="vb_img w-110 h-60">
            		 <p class="h-10 ml-2"> </p>
-            		<p class="vb_price h-10 ml-2"> ${data[i].vb_price} </p>
+            		<p class="vb_price h-10 ml-2"> $${data[i].vb_price} </p>
             		<p class="h-10 ml-2">  </p>
         		</div>`;
 			vb.insertAdjacentHTML('beforeend', vb_html);
